@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Titulek</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <script src="menu.js"></script>
+  <h1>Verzování změn</h1>
+  <p>
+    Pokud upravuji nějaký dokument opakovaně a dlouhodoběji, dojdu do stavu,
+    kdy potřebuji ukládat starší a novější verze. Mám několik vhodnějších
+    i méně vhodnějších možností.
+  </p>
+
+  <h2>Kopie</h2>
+  <p>Nejjednodušší systém je kopie</p>
+  <ol>
+    <li>Vytvořím dokument</li>
+    <li>Udělám změny</li>
+    <li>Zkopíruji jej <code>ctrl+c</code> pak <code>ctrl+v</code></li>
+    <li>Opakuji (2)</li>
+  </ol>
+  <p>Za nějakou dobu vypadá naše složka následovně:</p>
+  <pre>
+    # ls
+    diplomka.tex
+    diplomka (kopie).tex
+    diplomka (kopie 2).tex
+    ...
+    diplomka (kopie 102).tex
+  </pre>
+  <p>a nikdo už nezjistí, jaká změna kdy nastala a kdy se mi soubor "totálně rozpadl".</p>
+
+  <h2>Kopie + přejmenování</h2>
+  <p>
+    Trošku chytřejší verze je přejmenovat soubor podle fáze. Postup je podobný, pouze po vytvoření
+    kopie použijeme <code>f2</code> a připojíme k názvu vhodný suffix, například <code>-úvod</code>,
+    <code>-implementace-pohybu</code>, <code>-rozbitý-skok</code>, ...
+  </p>
+  <p>
+    Speciální variantou je pak suffix ve formě <code>$index-$změna</code>, který zachovává řazení
+    dokumentů chronologicky a zároveň řeší problém můžeme očekávat, co v této verzi již je obsaženo.
+    Stále ale vypadá náš disk dosti zmateně:
+  </p>
+  <pre>
+    # ls
+    diplomka.tex
+    diplomka002-uvod.tex
+    diplomka003-podekovani.tex
+    ...
+    diplomka123-proc-to-nefunguje.tex
+  </pre>
+
+  <h2>git</h2>
+  <p>
+    <a href="https://git-scm.com/">Git</a> je jeden z verzovacích systémů, který se hojně ujal nejen
+    v programátorských kruzích. Jeho funkce je jednoduchá, sleduje změny v souborovém systému a umožní
+    označit soubory které chceme sledovat a následně potvrdit <code>commit</code> připravené změny do
+    revizí <code>revision</code>. Zaznamenává údaje o změnách, historii a umožňuje i její rozvětvení.
+    Další velkou výhodou gitu je možnost odesílat <code>push</code> a příjimat <code>pull</code>
+    změny z/do vzdálených repozitářů a zjednodušuje tak spolupráci ve větších skupinách.
+  </p>
+
+  <h3>git - lokálně</h3>
+  <p>
+    Nejjednodušším použitím je lokální sledování změn v gitu. Vytvořím repozitář, vytvořím soubor(y),
+    řeknu gitu které soubory chci verzovat a pak už jen upravuji a commituji změny.
+  </p>
+
+  <ol>
+    <li>Vytvořím repozitář <code>git init .</code></li>
+    <li>Vytvořím/upravím soubor(y)</li>
+    <li>Označím soubory určené k verzování <code>git add $soubor</code></li>
+    <li>Zapíši změnu <code>git commit -as</code>, git se mě zeptá na detaily změny, které následně ukazuje v historii</li>
+    <li>Opakuji (2)</li>
+  </ol>
+
+  <p>
+    Ve složce vidím pouze jednu verzi mých souborů, ale použitím <code>git log</code> zobrazím historii,
+    případně <code>git show $verze</code> i změny od předchozí verze, <code>git diff $verze1..$verze2</code>
+    změny mezi 2 verzemi. Také se mohu vrátit k nějaké verzi pomocí <code>git checkout $verze</code>,
+    případně smazat současné změny pomocí <code>git reset --hard $verze</code>. Možností je mnoho,
+    a jakmile cokoliv zapíšu <code>commit</code> je velmi pravděpodobné, že se k této verzi budu moci
+    vrátit, ať se děje (téměř) cokoliv.
+  </p>
+
+  <h3>git - vzdáleně</h3>
+  <p>
+    Předchozí řešení je velmi robustní, neřeší ale problém ztráty počítače (rozbití, vir, ...). Git umožňuje
+    nejenom změny zaznamenávat, ale i odesílat na vzdálené repozitáře <code>repository</code> pomocí
+    <code>git push</code> a <code>git pull</code>. Vzdálený repozitář může být na flash-disku, na síťovém
+    disku, na vzdáleném počítači, nebo v cloudu. Pro uživatele je ale vše transparentní.
+  </p>
+
+  <ol>
+    <li>Vytvořím repozitář na vzdáleném stroji <code>git init .</code> (případně tlačítkem na githubu/gitlabu/...</li>
+    <li>Naklonuji si repozitář na můj počítač <code>git clone $cesta-k-repozitáři</code> (například `http://nas_pocitac:8080/ja/muj_repozitar`, nebo `F:\zaloha\muj_repozitar`)</li>
+    <li>Vytvořím/upravím soubor(y)</li>
+    <li>Označím soubory určené k verzování <code>git add $soubor</code></li>
+    <li>Zapíši změnu <code>git commit -as</code>, git se mě zeptá na detaily změny, které následně ukazuje v historii</li>
+    <li>Odešlu změny do vzdáleného repozitáře <code>git push</code> (nemusím dělat po každé změně)</li>
+    <li>Opakuji (3)</li>
+  </ol>
+
+  <h3>gitlab/github/...</h3>
+  <p>
+    Předešlé řešení funguje velmi dobře pro jednoho člověka, případně menší skupinu lidí. Pokud chceme
+    spolupracovat ve větší skupině, je vhodné využít github/gitlab či podobné nástroje, které přidávají
+    systém oprávnění (né každý může zapisovat do mého repozitáře) a také možnost diskutovat o jednotlivých
+    změnách.
+  </p>
+
+  <ol>
+    <li>
+      Na githubu/gitlabu si vyhledám projekt, do kterého chci přizpívat. Nemohu ovšem přímo posílat změny
+      do hlavního repozitáře, místo toho nejprve projekt rozvětvím na svůj účet <code>fork</code>.
+    </li>
+    <li>Naklonuji si repozitář na můj počítač <code>git clone $cesta-k-repozitáři</code> (například `http://nas_pocitac:8080/ja/muj_repozitar`, nebo `F:\zaloha\muj_repozitar`)</li>
+    <li>Rozmyslím si, na čem budu zrovna dnes pracovat a vytvořím si vhodně pojmenovanou větev <code>git checkout -b $nazev_větve</code></li>
+    <li>Vytvořím/upravím soubor(y)</li>
+    <li>Označím soubory určené k verzování <code>git add $soubor</code></li>
+    <li>Zapíši změnu <code>git commit -as</code>, git se mě zeptá na detaily změny, které následně ukazuje v historii</li>
+    <li>Opakuji (4) dokud potřebuji přidávat změny, které se týkají mé větve.</li>
+    <li>Odešlu změny do svého vzdáleného repozitáře <code>git push</code></li>
+    <li>Vytvořím požadavek o začlenění <code>Pull Request</code>/<code>Merge Request</code> na stránkách githubu/gitlabu</li>
+    <li>
+      Počkám na komentáře od vlastníků veřejného repozitáře, případně přidám další změny, opravím existující změny
+      (<code>git push --force</code>) až jsou jednou spokojení a mou změnu přijmou <code>merge</code>. Od této chvíle
+      všichni uživatelé uvidí mou změnu na hlavních stránkách projektu.
+    </li>
+    <li>Opakuji (3)</li>
+  </ol>
+
+  <p>
+    Použití větví <code>branch</code> je velmi přínosné, neboť mohu pracovat na více logických změnách zároveň
+    a přepínat se mezi nimi pomocí <code>git checkout $branch</code> kdykoliv kdy mám všechny změny zaznamenány
+    <code>git commit</code>.
+  </p>
+
+  <h2>Závěrem</h2>
+  <p>
+    Vždy záleží, na čem pracujeme. Často postačí kopie souboru, ale určitě doporučuji dát gitu šanci alespoň v té
+    nejprostší podobě ať už píšete diplomovou práci, zákon, vytváříte mód do hry, nebo píšete vlastní aplikaci.
+    Začátek není složitý a časem můžete objevit další kouzelné funkce tohoto systému verzí.
+  </p>
+</body>
+</html>

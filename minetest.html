@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <link rel="icon" type="image/x-icon" href="images/minetest.ico">
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Minetest/Voxelibre</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/minetest.jpg" width="480" alt="Ukázka ze hry Minetest" class="obrazek">
+        <figcaption>Vodopád s výhledem na moře</figcaption>
+      </figure>
+      <p>
+        Opensourcová alternativa ke hře Minecraft. Narozdíl od něj umožňuje
+        různé formy od sandboxu bez cíle po jednoúčelové hry typu vyhýbej
+        se vagónům.
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+        <li>Projděte si módy, ale pozor na viry.</li>
+        <li>Mě osobně vyhovuje standardní Minetest sandbox s malým množstvím
+            bloků, Voxelibre umí být zajímavější, ale množství funkcí mě
+            odrazuje od hry samotné.</li>
+        <li>Hrajte s přáteli</li>
+        <li>Zkuste si upravit nějaký mód (stačí textura), nebo rovnou vytvořte
+            něco nového, pěkný návod je například
+            <a href="https://rubenwardy.com/minetest_modding_book/en/index.html">zde</a></li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>Sandboxová hra - nikdo mě nenutí něco dělat či nedělat</li>
+            <li>Větší variabilita než Minecraft</li>
+            <li>Menší HW požadavky, mohu hrát na starém železe s kamarády</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>
+          <ul>
+            <li>Občas mě omrzí, odpočinu si a zase se vrhnu do stavění</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>Single-core 1GHz</td><td>Dual-core 2GHz</td></tr>
+        <tr><td>Grafická karta</td><td>Jakákoliv OpenGL</td><td>Jakákoliv OpenGL</td></tr>
+        <tr><td>Paměť RAM</td><td>512MB</td><td>2GB</td></tr>
+        <tr><td>Disk</td><td>512MB</td><td>1GB</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/minetest1.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest2.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest3.jpg" alt="Ukázka ze hry Minetest"class="obrazek">
+        <img src="images/minetest4.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest5.jpg" alt="Ukázka ze hry Minetest"class="obrazek">
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: Lukáš Doktor</p>
+  </footer>
+</body>
+</html>

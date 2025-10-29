@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Stunts</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/stunts.png" width="480" alt="Ukázka ze hry Minetest" class="obrazek">
+        <figcaption>Akrobatické kousky ve hře Stunts</figcaption>
+      </figure>
+      <p>
+        Moje nejoblíbenější hra z dětství byla skvělá díky krásným autům, možnosti replaye, úžasným zvukovým efektům
+        a hlavně úžasnému editoru tratí u kterého se dal ztrávit veškerý čas na návštěvách u kamarádů a příbuzných
+        co měli počítač.
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+        <li>Vertikální překážku lze proskočit bokem s polovičním přetočením</li>
+        <li>Některé tratě jdou projet pouze s rychlejšími vozy</li>
+        <li>Bacha na překážky hned za horizontem</li>
+        <li>Dejte šanci editoru, pohrajte si s různými povrchy a ozdobte okolí loděmi, kaktusy i domy</li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>editor</li>
+            <li>editor</li>
+            <li>editor</li>
+            <li>Audi Quattro</li>
+            <li>zvuky a smyky</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>
+          <ul>
+            <li>trhaný obraz</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>8086 (8MHz)</td><td>386 (20MHz)</td></tr>
+        <tr><td>Grafická karta</td><td>Hercules</td><td>VGA 256 colors</td></tr>
+        <tr><td>Paměť RAM</td><td>512KB</td><td>1MB</td></tr>
+        <tr><td>Disk</td><td>1.1MB</td><td>2MB</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/stunts1.png" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/stunts2.png" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/stunts3.png" alt="Ukázka ze hry Minetest"class="obrazek">
+        <img src="images/stunts4.png" alt="Ukázka ze hry Minetest"class="obrazek">
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: [nějaká přezdívka, neuváděj své jméno ani nic snadno identifikovatelného]</p>
+  </footer>
+</body>
+</html>

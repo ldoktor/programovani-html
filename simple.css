@@ -1,0 +1,157 @@
+/* simple.css – Minimal, clean styling */
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background: #f5f5f5;
+  color: #333;
+}
+
+#horni-menu {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #4a90e2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 9999;
+}
+#horni-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#horni-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 10px;
+  display: block;
+}
+#horni-menu a:hover {
+  text-decoration: underline;
+}
+#horni-menu .has-sub {
+  position: relative;
+}
+#horni-menu .sub {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0;
+  background: #357ABD;
+  padding: 6px 0;
+  margin: 0;
+  list-style: none;
+  min-width: 160px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+#horni-menu .sub li a {
+  padding: 8px 14px;
+  white-space: nowrap;
+}
+#horni-menu .has-sub:hover > .sub,
+#horni-menu .has-sub:focus-within > .sub {
+  display: block;
+}
+body.has-fixed-menu {
+  padding-top: 56px; /* make room for fixed menu */
+}
+
+h1, h2 {
+  color: #0066cc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background: #f0f0f0;
+}
+
+.uvodni-obrazek {
+  float: right;
+  margin-left: 20px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  background: #fff;
+}
+
+.galerie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.galerie img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
+
+.galerie img:hover {
+  border-color: #0066cc;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay.hidden { display: none; }
+
+.overlay img {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+  padding: 10px;
+}
+
+#prev { left: 20px; }
+#next { right: 20px; }
+
+.close {
+  position: absolute;
+  top: 10px; right: 20px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+footer {
+  text-align: right;
+  background: #0066cc;
+  color: white;
+  padding: 10px 10px;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9em;
+}

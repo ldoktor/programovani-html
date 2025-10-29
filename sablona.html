@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Název hry</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/minetest.jpg" width="480" alt="Ukázka ze hry Minetest" class="obrazek">
+        <figcaption>Popisek úvodního obrázku</figcaption>
+      </figure>
+      <p>
+        Tady napiš svůj text o hře...
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+        <li>Zde vlož tipy a triky ke hře</li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>Co se mi líbí</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>
+          <ul>
+            <li>Co se mi nelíbí</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>???</td><td>???</td></tr>
+        <tr><td>Grafická karta</td><td>???</td><td>???</td></tr>
+        <tr><td>Paměť RAM</td><td>???</td><td>???</td></tr>
+        <tr><td>Disk</td><td>???</td><td>???</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/minetest1.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest2.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest3.jpg" alt="Ukázka ze hry Minetest"class="obrazek">
+        <img src="images/minetest4.jpg" alt="Ukázka ze hry Minetest" class="obrazek">
+        <img src="images/minetest5.jpg" alt="Ukázka ze hry Minetest"class="obrazek">
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: [nějaká přezdívka, neuváděj své jméno ani nic snadno identifikovatelného]</p>
+  </footer>
+</body>
+</html>
