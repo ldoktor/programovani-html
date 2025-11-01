@@ -18,6 +18,12 @@
           <li><a href="minetest.html" target="_top">Minetest</a></li>
         </ul>
       </li>
+      <li class="has-sub">
+        <a href="#" aria-haspopup="true" aria-expanded="false">Piki ▾</a>
+        <ul class="sub">
+          <li><a href="homm.html" target="_top">HoMM3</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>`;
 
