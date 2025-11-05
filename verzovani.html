@@ -64,6 +64,7 @@
   </p>
 
   <h3>git - lokálně</h3>
+  <img src="git1.svg" width="200" style="float:right;" class="obrazek">
   <p>
     Nejjednodušším použitím je lokální sledování změn v gitu. Vytvořím repozitář, vytvořím soubor(y),
     řeknu gitu které soubory chci verzovat a pak už jen upravuji a commituji změny.
@@ -87,6 +88,7 @@
   </p>
 
   <h3>git - vzdáleně</h3>
+  <img src="git2.svg" width="200" style="float:right;" class="obrazek">
   <p>
     Předchozí řešení je velmi robustní, neřeší ale problém ztráty počítače (rozbití, vir, ...). Git umožňuje
     nejenom změny zaznamenávat, ale i odesílat na vzdálené repozitáře <code>repository</code> pomocí
@@ -105,6 +107,7 @@
   </ol>
 
   <h3>gitlab/github/...</h3>
+  <img src="git3.svg" width="200" style="float:right;" class="obrazek">
   <p>
     Předešlé řešení funguje velmi dobře pro jednoho člověka, případně menší skupinu lidí. Pokud chceme
     spolupracovat ve větší skupině, je vhodné využít github/gitlab či podobné nástroje, které přidávají
@@ -145,5 +148,13 @@
     nejprostší podobě ať už píšete diplomovou práci, zákon, vytváříte mód do hry, nebo píšete vlastní aplikaci.
     Začátek není složitý a časem můžete objevit další kouzelné funkce tohoto systému verzí.
   </p>
+
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
 </body>
 </html>
