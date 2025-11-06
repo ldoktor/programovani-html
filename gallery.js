@@ -1,4 +1,11 @@
-/* gallery.js – Full‑screen image viewer with left/right navigation */
+/* gallery.js – Full‑screen image viewer with left/right navigation
+ *
+ * The script now supports a `data-full` attribute on each thumbnail.
+ * Example:
+ *   <img src="thumb.jpg" data-full="full.jpg" class="obrazek">
+ *
+ * If `data-full` is omitted, the thumbnail URL is used as the full image.
+ */
 
 /* 1️⃣ Get all elements we’ll need */
 const galleryImages = document.querySelectorAll('.obrazek');
@@ -14,8 +21,12 @@ let currentIndex = 0; // index of the currently displayed image
 function showImage(index) {
   if (index < 0 || index >= galleryImages.length) return;
   currentIndex = index;
-  overlayImg.src = galleryImages[index].src;
+
+  /* Prefer the full‑size URL stored in data-full, otherwise use the thumbnail src */
+  const fullSrc = galleryImages[index].dataset.full || galleryImages[index].src;
+  overlayImg.src = fullSrc;
   overlayImg.alt = galleryImages[index].alt || '';
+
   overlay.classList.remove('hidden');
 }
 
@@ -44,4 +55,3 @@ overlay.addEventListener('click', (e) => {
   if (e.target === overlayImg || e.target === prevBtn || e.target === nextBtn) return;
   overlay.classList.add('hidden');
 });
-
