@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="modern.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>car master</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/car master5.webp" width="480" alt="Ukázka ze hry Minetest" class="obrazek">
+        <figcaption>Popisek úvodního obrázku</figcaption>
+      </figure>
+      <p>
+         Car master je super pro ty kteřý mají raďi tuňeňí aut a opravováńí. 
+         
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+       Typi, když se vám tam oběví auto(policie,záchranka,taxi) za reklamu vemte to. 
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li> Že OPRAVUJEŠ auta.</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>   
+          <ul>
+            <li>Máš janom 3 druhy barev.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>4 JÁDRA</td><td>8 jader</td></tr>
+        <tr><td>Grafická karta</td><td>UHD 630</td><td>direcx 11</td></tr>
+        <tr><td>Paměť RAM</td><td>8 GB RAM</td><td>10 GB</td></tr>
+        <tr><td>Disk</td><td>SSD s 10 GB</td><td>SSD s 10 GB</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky.">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/car master2.webp" data-full="images/car master2.webp" alt="Ukázka ze hry car master2" class="obrazek">
+        <img src="images/car master3.webp" data-full="images/car master3.webp" alt="Ukázka ze hry car master3" class="obrazek">
+        <img src="images/car master5.webp" data-full="images/car master5.webp" alt="Ukázka ze hry car master5" class="obrazek">
+        <img src="images/car master4.webp" data-full="images/car master4.webp" alt="Ukázka ze hry car master4" class="obrazek">
+        <img src="images/car macter1.webp" data-full="images/car macter1.webp" alt="Ukázka ze hry car master4" class="obrazek">
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: [pokac]</p>
+  </footer>
+</body>
+</html>
