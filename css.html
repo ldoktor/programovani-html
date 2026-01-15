@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>CSS/Kaskádové styly</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>Co to je CSS</h2>
+      <p>
+        CSS (zkratka pro Cascading Style Sheets) je kód, který určuje vzhled a rozvržení
+        webové stránky. Zatímco v HTML píšete, co na stránce bude (texty, obrázky,
+        tlačítka), v CSS určujete, jak to bude vypadat.
+      </p>
+    </section>
+
+    <section id="ai">
+        <h2>Jednoduchý prompt pro AI</h2>
+        <p>
+            Pro základní seznámení s možnostmi CSS můžeme využít LLM
+            (large language models == veliké jazykové modely) aby nám ukázali,
+            jak se může naše stránka proměnit bez změny obsahu.
+        </p>
+        <p><strong style="color: red;">
+            LLM není člověk, je to v podstatě kompresní algoritmus,
+            který hledá nejpravděpodobnějíš pokračování textu na základě předchozího
+            zadání. Například po <code>"Kde domov můj, kde "</code> je velmi pravděpodobné,
+            že bude pokračovat text naší hymny. Můžete získat i jinou odpověď
+            v závislosti na nastavení LLM. Pěkné
+            <a href="https://www.youtube.com/watch?v=Wg9gbEa28D8">video je k dispozici na NEZkreslené vědě</a>.
+        </strong></p>
+        <p>
+            Můžeme využít následující "prompt" (=dotaz) jako odrazový můstek
+            a následně již vlasními slovy doplňte, jak by měla vaše stránka
+            vypadat.
+        </p>
+        <p>
+            Pozor, pokud chcete do promptu přidat novou řádku, musíte kliknout
+            <pre>shift+enter</pre>. Pomocí <pre>enter</pre> odešlete dotaz.
+        </p>
+        <button id="copy-btn">Zkopíruj celý prompt</button>
+        <pre><code id="code-block">
+Jsem student a učím se HTML/CSS. Vytvořil jsem následující stránku:
+
+VAŠE STRÁNKA (ctrl+c, ctrl+v)
+
+a rád bych se naučil jak moc ji lze proměnit pomocí css. Pro horní menu a fotky je nutné něco jako:
+
+/* HORNÍ MENU */
+#horni-menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+#horni-menu ul {
+  display: flex;
+  list-style: none;
+}
+body { padding-top: 50px; }
+
+/* GALERIE */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+}
+.overlay.hidden {
+  display: none;
+}
+.overlay img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.nav, .close {
+  position: absolute;
+}
+#prev { left: 0; }
+#next { right: 0; }
+.close { top: 0; right: 0; }
+
+
+Navrhneš mi prosím základní CSS pro různé elementy, abych s nimi mohl experimentovat
+a pak zajímavé CSS s úplnými šílenostmi abych věděl, co vše je pomocí CSS možné?
+Vždy vytiskni kompletní CSS se všemi změnami.</code></pre>
+
+    <button id="copy-btn">Zkopíruj celý prompt</button>
+
+    <script>
+    document.getElementById('copy-btn').addEventListener('click', async () => {
+        try {
+            const code = document.getElementById('code-block').textContent;
+            await navigator.clipboard.writeText(code);
+            // Optional: Change button text temporarily
+            const btn = document.getElementById('copy-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Hotovo, nyní použij ctrl+v pro vložení';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 10000);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    });
+    </script>
+
+    </section>
+
+    <section id="odkazy">
+        <ul>
+            <li><a href="https://www.google.com">Geminy (klikněte na Režim AI)</a></li>
+            <li><a href="https://www.chatgpt.com">ChatGPT (pokud se zeptá, dejte pokračovat bez přihlášení)</a></li>
+        </ul>
+    </section>

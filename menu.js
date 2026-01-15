@@ -10,7 +10,13 @@
   <nav id="horni-menu">
     <ul class="top">
       <li><a href="verzovani.html" target="_top">Verzování</a></li>
-      <li><a href="sablona.html" target="_top">Šablona</a></li>
+      <li class="has-sub">
+        <a href="#" aria-haspopup="true" aria-expanded="false">Pokyny ▾</a>
+        <ul class="sub">
+          <li><a href="sablona.html" target="_top">Šablona</a></li>
+          <li><a href="css.html" target="_top">Styl</a></li>
+        </ul>
+      </li>
       <li class="has-sub">
         <a href="#" aria-haspopup="true" aria-expanded="false">Lukáš ▾</a>
         <ul class="sub">
