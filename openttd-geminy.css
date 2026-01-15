@@ -1,0 +1,226 @@
+/* --- GLOBÁLNÍ NASTAVENÍ A PROMĚNNÉ --- */
+:root {
+  --primary-color: #2c3e50;
+  --accent-color: #e67e22;
+  --bg-grass: #2ecc71;
+  --bg-water: #2980b9;
+  --text-dark: #333;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 70px; /* Prostor pro fixní menu */
+  color: var(--text-dark);
+  /* Animované pozadí měnící barvy jako krajina OpenTTD */
+  background: linear-gradient(125deg, var(--bg-grass), #27ae60, var(--bg-water), #34495e);
+  background-size: 400% 400%;
+  animation: landscapeGradient 15s ease infinite;
+  overflow-x: hidden; /* Zabrání vodorovnému posuvníku kvůli vlakům */
+}
+
+@keyframes landscapeGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- HORNÍ MENU --- */
+#horni-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+#horni-menu ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#horni-menu a {
+  display: block;
+  padding: 18px 25px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+
+#horni-menu a:hover {
+  background: var(--accent-color);
+}
+
+/* --- HLAVNÍ OBSAH A SEKCE --- */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 3.5rem;
+  text-shadow: 3px 3px 0px var(--accent-color);
+  margin-bottom: 40px;
+}
+
+section {
+  background: rgba(255, 255, 255, 0.95);
+  margin: 100px auto; /* Velká mezera pro průjezd vlaků */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  background: white;
+}
+
+/* --- VLÁČKY MEZI SEKCMI --- */
+/* Koleje */
+section:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  bottom: -65px;
+  left: -50vw;
+  width: 200vw;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #444 0px, #444 10px, #888 10px, #888 20px);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Vlaky */
+section:not(:last-child)::after {
+  content: "🚂 🚃 🚃 🚃 🚃";
+  position: absolute;
+  bottom: -85px;
+  left: -200px;
+  font-size: 30px;
+  white-space: nowrap;
+  z-index: 5;
+  animation: driveRight 12s linear infinite;
+  filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.3));
+}
+
+section:nth-child(even):not(:last-child)::after {
+  content: "🚃 🚃 🚃 🚂";
+  animation: driveLeft 15s linear infinite;
+  bottom: -85px;
+}
+
+@keyframes driveRight {
+  from { left: -200px; }
+  to { left: 100vw; }
+}
+
+@keyframes driveLeft {
+  from { left: 100vw; }
+  to { left: -300px; }
+}
+
+/* --- TABULKA --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  color: #00ff00;
+  font-family: monospace;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+th {
+  background: #333;
+  color: white;
+}
+
+/* --- GALERIE --- */
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.galerie img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 3px solid white;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.galerie img:hover {
+  transform: scale(1.1) rotate(2deg);
+  filter: brightness(1.2);
+}
+
+/* --- OVERLAY GALERIE --- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.overlay.hidden {
+  display: none !important;
+}
+
+.overlay img {
+  max-width: 90%;
+  max-height: 85%;
+  border: 4px solid white;
+}
+
+.nav, .close {
+  position: absolute;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+#prev { left: 20px; }
+#next { right: 20px; }
+.close { top: 10px; right: 20px; font-size: 60px; }
+
+/* --- DOPLNĚNÍ AUTORA PŘES CSS --- */
+footer p::after {
+  content: " (ve spolupráci s AI asistentem 🤖 geminy)";
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9em;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  color: white;
+  font-weight: bold;
+}

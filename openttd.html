@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="openttd-geminy.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>OpenTTD</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/openttd3.jpg" width="480" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <figcaption>Železnice, mosty, mašinky a vagónky!</figcaption>
+      </figure>
+      <p>
+        OpenTTD je opensourcová předělávka hry Transport Tycoon Deluxe (z roku 1994). Cíl je jediný, rozvíjet dopravní firmu.
+        Ať už si člověk zvolí vlaky, autobusy, náklaďáky, lodě či letadla, určitě si užije spoustu legrace. Hra podporuje
+        různá rozšíření stahovatelná přímo ze hry, která mohou hru proměnit v realistický simulátor s reálnými stroji,
+        nebo si může zvolit zábavný svět hraček či cokoliv mezi tím.
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+        <li>Mrkněte na youtube pro návody a na openttd wiki pro další rady.</li>
+        <li>V nastavení lze zapnout zavírání oken pravým tlačítkem myši. První věc co po instalaci dělám :-)</li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>Roztomilá grafika a všudy přítomný pohyb rozličných strojů i prostředí</li>
+            <li>Tvorba obřích kolejových sítí</li>
+            <li>Zvuky a hudba</li>
+            <li>Grafy</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>
+          <ul>
+            <li>Časová náročnost</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>Pentium 233 MHz MMX</td><td>Code2Duo 2GHz</td></tr>
+        <tr><td>Grafická karta</td><td>VGA 640x480x8</td><td>DirectX9</td></tr>
+        <tr><td>Paměť RAM</td><td>256MB</td><td>1GB</td></tr>
+        <tr><td>Disk</td><td>50MB</td><td>300MB</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/openttd1-small.jpg" data-full="images/openttd1.jpg" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <img src="images/openttd2-small.jpg" data-full="images/openttd2.jpg" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <img src="images/openttd4-small.jpg" data-full="images/openttd4.jpg" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <img src="images/openttd5-small.jpg" data-full="images/openttd5.jpg" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <img src="images/openttd6-small.webp" data-full="images/openttd6.webp" alt="Ukázka ze hry OpenTTD" class="obrazek">
+        <img src="images/openttd7-small.jpg" data-full="images/openttd7.jpg" alt="Ukázka ze hry OpenTTD" class="obrazek">
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: Lukáš</p>
+  </footer>
+</body>
+</html>

@@ -16,6 +16,7 @@
         <ul class="sub">
           <li><a href="stunts.html" target="_top">Stunts</a></li>
           <li><a href="minetest.html" target="_top">Minetest</a></li>
+          <li><a href="openttd.html" target="_top">OpenTTD</a></li>
         </ul>
       </li>
       <li class="has-sub">
