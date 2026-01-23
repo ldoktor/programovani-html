@@ -47,6 +47,13 @@
           <li><a href="fifa 26-crazy.html" target="_top">FIFA26 šílené</a></li>
         </ul>
       </li>
+      <li class="has-sub">
+        <a href="#" aria-haspopup="true" aria-expanded="false">nesnasim letadlo ▾</a>
+        <ul class="sub">
+          <li><a href="WWE 2K25.html" target="_top">WWE 2K25</a></li>
+          <li><a href="WWE 2K25-crazy.html" target="_top">WWE 2K25 šílené</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>`;
 
