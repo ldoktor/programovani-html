@@ -29,6 +29,8 @@
         <a href="#" aria-haspopup="true" aria-expanded="false">Piki ▾</a>
         <ul class="sub">
           <li><a href="homm.html" target="_top">HoMM3</a></li>
+          <li><a href="crazigames.html" target="_top">Crazy games</a></li>
+          <li><a href="crazigames-crazy.html" target="_top">Crazy games šílené</a></li>
         </ul>
       </li>
     </ul>
