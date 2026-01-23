@@ -1,0 +1,96 @@
+/* ANIMOVANÉ POZADÍ */
+body {
+  margin: 0;
+  padding-top: 60px;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* NEONOVÉ MENU */
+#horni-menu {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px); /* Rozmaže pozadí pod menu */
+  border-bottom: 2px solid #00ffcc;
+}
+
+#horni-menu a {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+/* ŠÍLENÝ HLAVNÍ PANEL */
+main {
+  background: rgba(0, 0, 0, 0.7);
+  margin: 40px auto;
+  padding: 30px;
+  border: 5px double #00ffcc;
+  transform: skewY(-1deg); /* Celá stránka je lehce nakřivo */
+  box-shadow: 20px 20px 0px rgba(255, 0, 255, 0.5);
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  animation: glitch 1s linear infinite;
+}
+
+/* GLITCH EFEKT PRO NADPIS */
+@keyframes glitch {
+  2% { text-shadow: 2px 0 0 red, -2px 0 0 blue; }
+  4% { text-shadow: -2px 0 0 red, 2px 0 0 blue; }
+  6% { text-shadow: 2px 0 0 red, -2px 0 0 blue; }
+}
+
+/* OBRÁZKY S FILTRY */
+.uvodni-obrazek img {
+  filter: sepia(1) hue-rotate(180deg) contrast(1.5);
+  transition: 0.5s;
+  width: 100%;
+}
+
+.uvodni-obrazek img:hover {
+  filter: none;
+  transform: rotate(360deg) scale(0.8); /* Obrázek se při najetí roztočí */
+}
+
+/* TABULKA JAKO MATRIX */
+table {
+  background: black;
+  color: #00ff00;
+}
+
+th { background: #004400; }
+
+/* GALERIE - 3D EFEKT */
+.galerie img {
+  filter: grayscale(100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Obrázky budou ve tvaru kosočtverce */
+  transition: 0.3s;
+}
+
+.galerie img:hover {
+  filter: grayscale(0%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  transform: translateY(-20px);
+}
+
+/* OVERLAY S DUHOVÝM OKRAJEM */
+.overlay img {
+  border: 10px solid;
+  border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
+  animation: rotateBorder 2s linear infinite;
+}
+
+@keyframes rotateBorder {
+  to { filter: hue-rotate(360deg); }
+}

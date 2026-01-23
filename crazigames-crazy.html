@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="crazigames-crazy.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Count Master: sticman games</h1>
+  </header>
+
+  <main>
+    <section id="popis">
+      <h2>O čem hra je
+      </h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/crazigame1.jpg" width="480" alt="Začátek" class="obrazek">
+        <figcaption>Po jedné hře.</figcaption>
+      </figure>
+      <p>
+        Hra je o modrých sticmenech, které bojují proti červených sticmenech.
+        Modré sticmeny ovládáte právě vy.
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>Tipy a triky</h2>
+      <ol>
+        <li>Vždycky dávejte krát, pokudtam nebude krát 1.</li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>bojování</li>
+          </ul>
+        </li>
+        <li><strong>Zápory:</strong>
+          <ul>
+            <li>Nejde to hrát ve více.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>p4 2ghz</td><td>core2duo</td></tr>
+        <tr><td>Grafická karta</td><td>directx10</td><td>directx10</td></tr>
+        <tr><td>Paměť RAM</td><td>2ghz</td><td>2ghz</td></tr>
+        <tr><td>Disk</td><td>0mb</td><td>0mb</td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/crazigame2.jpg" data-full="images/crazigame2.jpg" alt="boj" class="obrazek">
+        <img src="images/crazigame3.jpg" data-full="images/crazigame3.jpg" alt="konec" class="obrazek">
+        <img src="images/crazigame4.jpg" data-full="images/crazigame4.jpg" alt="boj s bosem"class="obrazek">
+        <img src="images/crazigame5.jpg" data-full="images/crazigame5.jpg" alt="konec" class="obrazek">
+        <img src="images/carazigame6.jpg" data-full="images/carazigame6.jpg" alt="boj s lukostřelníky" class="obrazek">
+        <img src="images/crazigame7.jpg" data-full="images/crazigame7.jpg" alt="boj s bosem" class="obrazek">
+        <img src="images/crazigame8.jpg" data-full="images/crazigame8.jpg" alt="hrad" class="obrazek">
+      
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: piki</p>
+  </footer>
+</body>
+</html>
