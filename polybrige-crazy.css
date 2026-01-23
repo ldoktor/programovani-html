@@ -1,0 +1,158 @@
+/* Animované pozadí celého webu */
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: white;
+  font-family: 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* HORNÍ MENU - Skleněný efekt */
+#horni-menu {
+  position: fixed;
+  top: 0;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 100%;
+  z-index: 999;
+}
+
+/* Šílený nadpis - Neonový efekt */
+h1 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Karty sekcí, které "plavou" */
+section {
+  background: rgba(0, 0, 0, 0.7);
+  margin: 40px;
+  padding: 30px;
+  border-left: 10px solid #ff00de;
+  transform: skewX(-5deg); /* Naklonění celé sekce */
+  transition: transform 0.5s;
+}
+
+section:hover {
+  transform: skewX(0deg) scale(1.02);
+  box-shadow: 20px 20px 0px #23a6d5;
+}
+
+/* Obrázky s RGB efektem */
+.obrazek {
+  filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  transition: 0.5s;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); /* Divoký ořez */
+}
+
+.obrazek:hover {
+  filter: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Tabulka jako z terminálu */
+table {
+  border: 2px solid #23d5ab;
+  background: black;
+  color: #23d5ab;
+}
+
+th { background: #23d5ab; color: black; }
+
+/* Kontejner galerie */
+.galerie {
+  display: grid;
+  /* Automatické sloupce o minimální šířce 150px */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px; /* Mezery mezi obrázky */
+  padding: 20px;
+  max-width: 800px; /* Omezí celkovou šířku galerie */
+  margin: 0 auto;  /* Vycentruje galerii na stránce */
+}
+
+/* Styl jednotlivých obrázků */
+.galerie img {
+  width: 100%;
+  height: 150px; /* Pevná výška pro úhlednost */
+  object-fit: cover; /* Obrázek se ořízne, aby vyplnil prostor a nedeformoval se */
+  border-radius: 8px; /* Jemné zaoblení */
+  border: 2px solid rgba(35, 213, 171, 0.5);
+  transition: all 0.3s ease;
+  filter: grayscale(30%); /* Jemný retro nádech */
+}
+
+/* Efekt při najetí myši */
+.galerie img:hover {
+  transform: scale(1.05) translateY(-5px); /* Lehké nadzvednutí */
+  filter: grayscale(0%);
+  border-color: #ff00de;
+  box-shadow: 0 10px 20px rgba(255, 0, 222, 0.3);
+  cursor: pointer;
+}
+/* Styl pro tabulku nebo kontejner s hardwarem */
+.hardware-box, table {
+  border: 2px solid #23d5ab; /* Hlavní barva linky */
+  background: rgba(0, 0, 0, 0.85); /* Černé pozadí pro čitelnost */
+  border-collapse: separate;
+  border-spacing: 0;
+  
+  /* Neonové záření rámečku */
+  box-shadow: 
+    0 0 5px #23d5ab,
+    0 0 15px rgba(35, 213, 171, 0.3),
+    inset 0 0 10px rgba(35, 213, 171, 0.2);
+  
+  /* Styl rohu - "ukousnutý" roh pro technický vzhled */
+  clip-path: polygon(
+    0% 15px, 15px 0%, 
+    100% 0%, 100% calc(100% - 15px), 
+    calc(100% - 15px) 100%, 0% 100%
+  );
+  
+  transition: all 0.4s ease;
+  padding: 15px;
+}
+
+/* Efekt při najetí - rámeček se "rozsvítí" víc */
+.hardware-box:hover, table:hover {
+  border-color: #ff00de;
+  box-shadow: 
+    0 0 10px #ff00de,
+    0 0 25px rgba(255, 0, 222, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Pokud máš v tabulce hlavičku */
+th {
+  border-bottom: 2px solid #23d5ab;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 10px;
+}
+
+/* Overlay - šílený zoom */
+.overlay img {
+  animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0) rotate(180deg); }
+  to { transform: scale(1) rotate(0deg); }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje oblíbená hra</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="polybrige-crazy.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Název hry</h1>
+  </header>
+<h1>polybrige
+  </h1>
+  <main>
+    <section id="popis">
+      <h2>O čem hra je.</h2>
+      <figure class="uvodni-obrazek">
+        <img src="images/polybrige1.webp" width="480" alt="Ukázka ze hry Minetest" class="obrazek">
+        <figcaption>Popisek úvodního obrázku</figcaption>
+      </figure>
+      <p>
+        hra je o stavění mostů 
+      </p>
+    </section>
+
+    <section id="tipy">
+      <h2>tipy a triky</h2>
+      <ol>
+        <li>postavit co nejlepší most</li>
+      </ol>
+    </section>
+
+    <section id="hodnoceni">
+      <h2>Hodnocení</h2>
+      <ul>
+        <li><strong>Klady:</strong>
+          <ul>
+            <li>líbí se mi že si můžu stavět co chci</li>
+          </ul>
+        </li>
+        <li><strong>:</strong>
+          <ul>
+            <li><main></main></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pozadavky">
+      <h2>Hardwarové požadavky</h2>
+      <table>
+        <tr><th>Součást</th><th>Minimum</th><th>Doporučeno</th></tr>
+        <tr><td>Procesor</td><td>1 GHz </td><td>2 GHz</td></tr>
+        <tr><td>Grafická karta</td><td>512MB VRAM, s podporou DirectX 9.0</td><td>512MB VRAM, s podporou DirectX 9.0</td></tr>
+        <tr><td>Paměť RAM</td><td> 4 GB</td><td> 4 GB</td></tr>
+        <tr><td>Disk</td><td>150 MB volného místa </td><td> 1000 MB (1 GB) volného místa </td></tr>
+      </table>
+    </section>
+
+    <section id="obrazky">
+      <h2>Obrázky ze hry</h2>
+      <div class="galerie">
+        <img src="images/polybrige2.avif" data-full="images/polybrige2.avif" alt="Ukázka ze hry polybrige" class="obrazek">
+        <img src="images/polybrige3.jpeg" data-full="images/polybrige3.jpeg" alt="Ukázka ze hry polybrige" class="obrazek">
+        
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- Galerie - objeví se po kliknutí na obrázek -->
+  <div id="overlay" class="overlay hidden">
+    <span id="prev" class="nav">&#9664;</span>
+    <img id="overlay-img" src="" alt="Obrázek">
+    <span id="next" class="nav">&#9654;</span>
+    <span id="close" class="close">&times;</span>
+  </div>
+  <script src="gallery.js"></script>
+
+  <footer>
+    <p>Autor: [nějaká přezdívka, neuváděj své jméno ani nic snadno identifikovatelného]</p>
+  </footer>
+</body>
+</html>
