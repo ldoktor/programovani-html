@@ -33,6 +33,13 @@
           <li><a href="crazigames-crazy.html" target="_top">Crazy games šílené</a></li>
         </ul>
       </li>
+      <li class="has-sub">
+        <a href="#" aria-haspopup="true" aria-expanded="false">kinkonk ▾</a>
+        <ul class="sub">
+          <li><a href="polybrige.html" target="_top">Poly Bridge</a></li>
+          <li><a href="polybrige-crazy.html" target="_top">Poly Bridge šílené</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>`;
 
