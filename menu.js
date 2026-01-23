@@ -40,6 +40,13 @@
           <li><a href="polybrige-crazy.html" target="_top">Poly Bridge šílené</a></li>
         </ul>
       </li>
+      <li class="has-sub">
+        <a href="#" aria-haspopup="true" aria-expanded="false">nevim ▾</a>
+        <ul class="sub">
+          <li><a href="fifa 26.html" target="_top">FIFA26</a></li>
+          <li><a href="fifa 26-crazy.html" target="_top">FIFA26 šílené</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>`;
 
