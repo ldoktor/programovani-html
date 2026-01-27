@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kondiciogram</title>
+<style>
+  body {font-family: Arial, sans-serif; margin: 20px;}
+  label {display: block; margin-top: 10px;}
+  input, select, button {margin-top: 5px;}
+  pre {font-family: monospace; background:#f9f9f9; padding:10px; white-space: pre-wrap;}
+</style>
+</head>
+<body>
+
+<h1>Kondiciogram</h1>
+
+<form id="form">
+  <label>
+    Jméno:
+    <input type="text" id="name" required>
+  </label>
+  <label>
+    Datum narození:
+    <input type="date" id="dob" required>
+  </label>
+  <label>
+    Metoda výpočtu:
+    <select id="method">
+      <option value="random">Náhodná</option>
+      <option value="pseudo">Pseudo-náhodná</option>
+      <option value="positive">Pozitivní</option>
+      <option value="scientic">Vědecká</option>
+    </select>
+  </label>
+  <label>
+    Předpověď na:
+    <input type="number" id="months" min="1" value="2" required>
+  </label>
+  <label>
+    Rychlost
+    <input type="range" id="speed" min="0" max="300" value="30" required>
+  </label>
+  <button type="submit" id="generate">Jáchyme, hoď ho do stroje!</button>
+</form>
+
+<pre id="output"></pre>
+
+<script>
+/* -------------  Global variables  ------------- */
+let currentSpeed = 30;          // default value
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const speedSlider = document.getElementById('speed');
+const speedVal   = document.getElementById('speedVal');
+speedSlider.addEventListener('input', () => {
+  currentSpeed = parseInt(speedSlider.value, 10);
+  speedVal.textContent = currentSpeed;
+});
+
+/**
+ * Simple hash function that turns a string into a 32‑bit integer.
+ * @param {string} str
+ * @returns {number}
+ */
+function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0; // Convert to 32‑bit integer
+  }
+  return hash >>> 0; // Unsigned
+}
+
+/**
+ * Linear Congruential Generator (LCG) seeded with a 32‑bit integer.
+ * @param {number} seed
+ * @returns {function(): number} Random number generator returning [0,1)
+ */
+function lcg(seed) {
+  const a = 1664525;
+  const c = 1013904223;
+  const m = 0x100000000; // 2^32
+  let state = seed;
+  return function() {
+    state = (a * state + c) % m;
+    return state / m;
+  };
+}
+
+/**
+ * Returns a symbol based on the chosen method.
+ * @param {number} dayIndex - Day number in the month (1‑based)
+ * @param {number} monthIndex - Month index (0‑based)
+ * @param {string} method - 'random', 'pseudo', or 'scientic'
+ * @param {function(): number} pseudoRand - RNG for pseudo method
+ * @param {number} sciSeed - 32‑bit integer derived from name+dob
+ * @param {number} dayOfBirth - Day of month from the user’s DOB
+ * @param {number} amp1 - Amplitude multiplier for the 90‑day wave
+ * @param {number} amp2 - Amplitude multiplier for the 30‑day wave
+ * @param {number} amp3 - Amplitude multiplier for the 4‑day wave
+ * @returns {string} One of '+', '-', 'x', '*'
+ */
+function getSymbol(dayIndex, monthIndex, method, pseudoRand, sciSeed,
+                   dayOfBirth, amp1, amp2, amp3) {
+  const symbols = ['+', '-', 'x', '*'];
+  if (method === 'random') {
+    return symbols[Math.floor(Math.random() * symbols.length)];
+  }
+  if (method === 'pseudo') {
+    return symbols[Math.floor(pseudoRand() * symbols.length)];
+  }
+  if (method === 'positive') {
+    return symbols[0];
+  }
+
+  /* Scientific method – phases depend only on day of birth,
+     amplitudes depend on the user’s name. */
+  const dayOfYear = dayIndex + monthIndex * 30; // Rough day of year
+  const phase1 = (dayOfBirth % 360) * Math.PI / 180;
+  const phase2 = ((dayOfBirth + 120) % 360) * Math.PI / 180;
+  const phase3 = ((dayOfBirth + 240) % 360) * Math.PI / 180;
+
+  const val = amp1 * Math.sin(2 * Math.PI * dayOfYear / 90 + phase1) +
+              amp2 * Math.sin(2 * Math.PI * dayOfYear / 30 + phase2) +
+              amp3 * Math.sin(2 * Math.PI * dayOfYear / 4  + phase3);
+
+  if (val > 2.5) return '*';
+  if (val > 0.5) return '+';
+  if (val < -0.5) return '-';
+  return 'x';
+}
+
+/**
+ * Builds a calendar string for a given month and year.
+ * @param {number} year
+ * @param {number} monthIndex - 0‑based month
+ * @param {string} method
+ * @param {function(): number} pseudoRand
+ * @param {number} sciSeed
+ * @param {number} dayOfBirth
+ * @param {number} amp1
+ * @param {number} amp2
+ * @param {number} amp3
+ * @returns {string}
+ */
+function buildMonthCalendar(year, monthIndex, method, pseudoRand, sciSeed,
+                            dayOfBirth, amp1, amp2, amp3) {
+  const monthNames = ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen',
+                      'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'];
+
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  const firstDay = new Date(year, monthIndex, 1).getDay(); // 0=Sun
+  const firstDayMon = (firstDay + 6) % 7; // 0=Mon
+
+  const lines = [];
+  // Month header + blank line
+  lines.push(`${monthNames[monthIndex]} ${year}\n\n`);
+  // Weekday header with 3 leading spaces
+  lines.push('     Po  Út  St  Čt  Pá  So  Ne\n');
+
+  // Monday date of the first week that may start before the month
+  let mondayDate = firstDayMon === 0 ? 1 : 1 - firstDayMon;
+
+  // Build each week line
+  while (mondayDate <= daysInMonth) {
+    // Prefix: Monday date if it lies inside the month, otherwise two spaces
+    const prefix =
+      mondayDate >= 1 && mondayDate <= daysInMonth
+        ? mondayDate.toString().padStart(2, ' ') + '  '
+        : '    ';
+
+    let weekLine = prefix;
+
+    // Add cells for the 7 days of the week (or until month ends)
+    for (let i = 0; i < 7; i++) {
+      const day = mondayDate + i;
+      let symbol = ' ';
+      if (day >= 1 && day <= daysInMonth) {
+        symbol = getSymbol(
+          day,
+          monthIndex,
+          method,
+          pseudoRand,
+          sciSeed,
+          dayOfBirth,
+          amp1,
+          amp2,
+          amp3
+        );
+      }
+      weekLine += ` ${symbol}  `;
+    }
+
+    lines.push(weekLine.trimEnd() + '\n');
+    mondayDate += 7; // next week's Monday
+  }
+
+  return lines.join('');
+}
+
+/**
+ * Play a short click tone for a character.
+ *
+ * The tone is queued in the AudioContext and the function returns immediately,
+ * allowing the rest of the code to continue executing without waiting for the
+ * sound to finish.
+ *
+ * @param {string} ch - The character to play a tone for.
+ */
+function playTick(ch) {
+  // Nothing to play for null/undefined or a space.
+  if (!ch || ch === ' ') return;
+
+  const osc  = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  // Decide tone parameters based on the character.
+  const isNewline = ch === '\n';
+  const freq      = isNewline ? 600 : 1000;   // Hz
+  const type      = isNewline ? 'sine' : 'square';
+  const duration  = isNewline ? 0.1 : 0.05;   // seconds
+
+  const now = audioCtx.currentTime;
+
+  // Configure oscillator and gain.
+  osc.frequency.setValueAtTime(freq, now);
+  osc.type = type;
+  gain.gain.setValueAtTime(0.1, now);
+
+  // Connect and start immediately.
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(now);
+
+  // Stop asynchronously after the desired duration.
+  // Using setTimeout keeps the function non‑blocking.
+  setTimeout(() => {
+    osc.stop();
+    // Clean up the node chain to avoid memory leaks.
+    osc.disconnect();
+    gain.disconnect();
+  }, duration * 1000);
+}
+
+/**
+ * Animates a string into a target element, typing one character at a time.
+ * The typing speed oscillates around 20 chars/s (≈50 ms per char).
+ * @param {string} text - Full text to display
+ * @param {HTMLElement} element - Target element (e.g. <pre>)
+ * @param {function(): void} [callback] - Optional callback when finished
+ */
+function typeOut(text, element, callback) {
+  let i = 0;
+  function step() {
+    if (i < text.length) {
+      const ch = text[i++];
+      element.textContent += ch;
+      playTick(ch);
+      // Use the *current* speed value
+      const delay = currentSpeed * Math.random();
+      setTimeout(step, delay);
+    } else if (callback) {
+      callback();
+    }
+  }
+  step();
+}
+
+/**
+ * Generates calendars for the requested number of months.
+ * @param {string} name
+ * @param {string} dob
+ * @param {string} method
+ * @param {number} months
+ * @param {number} speed   // delay in ms (0‑speed → instant)
+ */
+function generateCalendars(name, dob, method, months, speed) {
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth(); // 0‑based
+
+  const pseudoRand = lcg(hashString(name + dob));
+  const sciSeed = hashString(name + dob); // used only for scientific method
+
+  /* Amplitudes derived from the name hash */
+  const amp1 = 0.5 + ((sciSeed & 0xFF) / 255);
+  const amp2 = 0.5 + (((sciSeed >> 8) & 0xFF) / 255);
+  const amp3 = 0.5 + (((sciSeed >> 16) & 0xFF) / 255);
+
+  /* Day of birth – used for phase offsets in the scientific method */
+  const dayOfBirth = new Date(dob).getDate();
+
+  let fullText = 'Legenda:\n + dobrý den\n - špatný den\n * skvělý den\n x kritický den\n\n';
+  for (let i = 0; i < months; i++) {
+    fullText += buildMonthCalendar(year, month, method, pseudoRand, sciSeed,
+                                   dayOfBirth, amp1, amp2, amp3);
+    fullText += '\n';
+    month++;
+    if (month > 11) { month = 0; year++; }
+  }
+
+  const outputEl = document.getElementById('output');
+  outputEl.textContent = '';          // clear previous output
+  typeOut(fullText, outputEl);        // animate
+}
+
+/* ------------------------------------------------------------------ */
+/*  Event handling – submit via button or pressing Enter             */
+/* ------------------------------------------------------------------ */
+document.getElementById('form').addEventListener('submit', function(e) {
+  e.preventDefault(); // stop real form submission
+  const name = document.getElementById('name').value.trim();
+  const dob = document.getElementById('dob').value;
+  const method = document.getElementById('method').value;
+  const months = parseInt(document.getElementById('months').value, 10) || 2;
+  if (!name || !dob) { alert('Please fill in all fields.'); return; }
+  generateCalendars(name, dob, method, months);
+});
+</script>
+
+</body>
+</html>
+

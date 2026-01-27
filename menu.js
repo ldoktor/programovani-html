@@ -15,6 +15,7 @@
         <ul class="sub">
           <li><a href="sablona.html" target="_top">Šablona</a></li>
           <li><a href="css.html" target="_top">Styl</a></li>
+          <li><a href="ai.html" target="_top">AI stránky</a></li>
         </ul>
       </li>
       <li class="has-sub">

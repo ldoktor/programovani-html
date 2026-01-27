@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Blind Map Game v6 (Details)</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Layout */
+        #map-container { width: 75%; height: 100%; position: relative; }
+        #sidebar { width: 25%; height: 100%; background: #f8f9fa; border-left: 2px solid #ddd; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        
+        #map { width: 100%; height: 100%; }
+
+        /* UI Elements */
+        h2 { margin-top: 0; color: #333; }
+        .btn { display: block; width: 100%; padding: 10px; margin: 10px 0; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+        .btn:hover { background: #0056b3; }
+        
+        .btn.secondary { background: #6c757d; flex: 1; font-size: 14px;}
+        .btn.secondary:hover { background: #545b62; }
+        
+        .btn.danger { background: #dc3545; flex: 1; font-size: 14px;}
+        .btn.danger:hover { background: #c82333; }
+
+        .btn.confirm { background: #28a745; display: none; }
+        .btn.reset { background: #17a2b8; margin-top: auto; }
+
+        .row { display: flex; gap: 5px; margin-bottom: 5px; }
+
+        .mode-indicator { padding: 5px 10px; background: #e9ecef; border-radius: 4px; font-weight: bold; margin-bottom: 15px; text-align: center; }
+        
+        /* Game Info */
+        .target-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 5px; text-align: center; margin-bottom: 15px; }
+        .target-name { font-size: 24px; font-weight: bold; color: #856404; display: block; margin-top: 5px; }
+        .target-details { font-size: 14px; color: #666; display: block; margin-top: 5px; white-space: pre-wrap; }
+        
+        /* Results Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+        th { background-color: #f1f1f1; }
+        .score-final { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; }
+        
+        .detail-text { font-size: 11px; color: #666; display: block; margin-top: 2px; line-height: 1.2; }
+
+        /* Modal Overlay */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-control { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        textarea.form-control { resize: vertical; font-family: inherit; }
+
+        /* Utility */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="input-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 style="margin-top:0">New Location</h3>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="input-name" class="form-control" placeholder="e.g. Paris">
+            </div>
+            <div class="form-group">
+                <label>Details (Optional):</label>
+                <textarea id="input-details" class="form-control" rows="3" placeholder="e.g. Capital of France"></textarea>
+            </div>
+            <div class="row">
+                <button class="btn" style="background:#28a745" onclick="saveCreatedLayer()">Save</button>
+                <button class="btn danger" onclick="cancelCreatedLayer()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <div id="sidebar">
+        <h2>Map Teacher</h2>
+        <div id="mode-badge" class="mode-indicator">Teacher Mode</div>
+
+        <div id="teacher-controls">
+            <p><strong>Instructions:</strong> Create Polygons (Regions), Lines (Rivers), or Markers (Cities).</p>
+            
+            <div class="row">
+                <button class="btn secondary" onclick="saveMapConfig()">Save JSON</button>
+                <button class="btn secondary" onclick="document.getElementById('file-input').click()">Load JSON(s)</button>
+                <input type="file" id="file-input" style="display: none;" onchange="loadMapConfig(this)" accept=".json" multiple>
+            </div>
+            
+            <div class="row">
+                <button class="btn danger" onclick="clearAllData()">Clear Map</button>
+            </div>
+
+            <hr>
+            <div id="poi-list">Items created: 0</div>
+            <button class="btn" onclick="startGame()">Switch to Student Mode</button>
+        </div>
+
+        <div id="student-controls" class="hidden">
+            <div id="timer">Time: 00:00</div>
+            
+            <div class="target-box">
+                Find / Draw:
+                <span class="target-name" id="current-target-name">...</span>
+                <span class="target-details" id="current-target-details"></span>
+            </div>
+
+            <p id="instruction-text">...</p>
+            <button class="btn confirm" id="confirm-btn" onclick="confirmMove()">Confirm Answer</button>
+
+            <h3>Results</h3>
+            <table id="score-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Error</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="final-score"></div>
+            
+            <button class="btn reset" onclick="location.reload()">Restart Game</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+    <script>
+        // --- Configuration ---
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        });
+        
+        const blindLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO'
+        });
+
+        // --- State ---
+        let map;
+        let drawnItems = new L.FeatureGroup(); 
+        let resultsLayer = new L.FeatureGroup(); 
+        let gameData = []; 
+        let gameQueue = []; 
+        let currentTurnIndex = 0;
+        let currentDrawControl = null;
+        let currentStudentLayer = null; 
+        
+        // Modal State
+        let tempLayer = null;
+        let tempLayerType = null;
+
+        let startTime, timerInterval;
+        
+        // --- Initialization ---
+        function init() {
+            map = L.map('map').setView([51.505, -0.09], 4);
+            osmLayer.addTo(map);
+            map.addLayer(drawnItems);
+            map.addLayer(resultsLayer);
+
+            initTeacherDraw();
+
+            // Global listener for student drawing completion
+            map.on(L.Draw.Event.CREATED, function (e) {
+                // If in Teacher Mode, we intercept this differently (see initTeacherDraw)
+                // If in Student Mode:
+                if (document.getElementById('teacher-controls').classList.contains('hidden')) {
+                    currentStudentLayer = e.layer;
+                    map.addLayer(currentStudentLayer);
+                    document.getElementById('confirm-btn').style.display = 'block';
+                    if (currentDrawControl) currentDrawControl.disable();
+                }
+            });
+        }
+
+        // --- Teacher Mode Logic ---
+        function initTeacherDraw() {
+            const drawControl = new L.Control.Draw({
+                draw: {
+                    polyline: true, 
+                    polygon: { allowIntersection: false },
+                    marker: true,
+                    circle: false,
+                    circlemarker: false,
+                    rectangle: false
+                },
+                edit: {
+                    featureGroup: drawnItems,
+                    remove: true
+                }
+            });
+            map.addControl(drawControl);
+
+            map.on(L.Draw.Event.CREATED, function (e) {
+                // Ignore if Student Mode is active
+                if (document.getElementById('teacher-controls').classList.contains('hidden')) return;
+
+                // Capture layer and type, show Modal instead of Prompt
+                tempLayer = e.layer;
+                tempLayerType = e.layerType;
+
+                // Clear fields
+                document.getElementById('input-name').value = "";
+                document.getElementById('input-details').value = "";
+                
+                // Show Modal
+                document.getElementById('input-modal').classList.remove('hidden');
+                document.getElementById('input-name').focus();
+            });
+
+            map.on(L.Draw.Event.DELETED, function(e) {
+                updateGameDataFromLayers();
+                updateTeacherUI();
+            });
+        }
+
+        // --- Modal Logic ---
+        function saveCreatedLayer() {
+            const name = document.getElementById('input-name').value.trim();
+            const details = document.getElementById('input-details').value.trim();
+
+            if (!name) {
+                alert("Name is required!");
+                return;
+            }
+
+            // Attach properties
+            tempLayer.feature = tempLayer.feature || {};
+            tempLayer.feature.type = "Feature";
+            tempLayer.feature.properties = { 
+                name: name, 
+                details: details,
+                type: tempLayerType 
+            };
+            
+            // Add a simple tooltip for Teacher view
+            const tooltipText = `<b>${name}</b>${details ? '<br>' + details : ''}`;
+            tempLayer.bindTooltip(tooltipText);
+
+            drawnItems.addLayer(tempLayer);
+            
+            // Cleanup
+            document.getElementById('input-modal').classList.add('hidden');
+            tempLayer = null;
+
+            updateGameDataFromLayers();
+            updateTeacherUI();
+        }
+
+        function cancelCreatedLayer() {
+            // Do not add the layer
+            document.getElementById('input-modal').classList.add('hidden');
+            tempLayer = null;
+        }
+
+        function updateGameDataFromLayers() {
+            gameData = [];
+            drawnItems.eachLayer(function(layer) {
+                if (layer instanceof L.Draw.Feature || typeof layer.toGeoJSON === 'function') {
+                    const geojson = layer.toGeoJSON();
+                    if(layer.feature && layer.feature.properties) {
+                        geojson.properties = layer.feature.properties;
+                    }
+                    
+                    if (!geojson.properties || !geojson.properties.name) return;
+
+                    gameData.push({
+                        id: L.Util.stamp(layer),
+                        type: geojson.properties.type || 'unknown',
+                        name: geojson.properties.name,
+                        details: geojson.properties.details || "",
+                        geojson: geojson
+                    });
+                }
+            });
+        }
+
+        function updateTeacherUI() {
+            document.getElementById('poi-list').innerText = `Items created: ${gameData.length}`;
+        }
+
+        function clearAllData() {
+            if(confirm("Are you sure you want to clear all map data?")) {
+                drawnItems.clearLayers();
+                updateGameDataFromLayers();
+                updateTeacherUI();
+            }
+        }
+
+        // --- Save / Load Logic ---
+        function saveMapConfig() {
+            if (gameData.length === 0) {
+                alert("No items to save!");
+                return;
+            }
+            const date = new Date().toISOString().slice(0, 10);
+            const filename = `map_game_${date}_${gameData.length}items.json`;
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameData));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", filename);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        async function loadMapConfig(input) {
+            const files = input.files;
+            if (files.length === 0) return;
+
+            let addedCount = 0;
+
+            const readFile = (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = (e) => reject(e);
+                    reader.readAsText(file);
+                });
+            };
+
+            for (let i = 0; i < files.length; i++) {
+                try {
+                    const jsonContent = await readFile(files[i]);
+                    const loadedData = JSON.parse(jsonContent);
+
+                    if (Array.isArray(loadedData)) {
+                        loadedData.forEach(item => {
+                            const layer = L.GeoJSON.geometryToLayer(item.geojson);
+                            layer.feature = item.geojson; 
+                            
+                            // Bind tooltip for teacher preview
+                            const props = layer.feature.properties;
+                            const tooltipText = `<b>${props.name}</b>${props.details ? '<br>' + props.details : ''}`;
+                            layer.bindTooltip(tooltipText);
+
+                            drawnItems.addLayer(layer); 
+                            addedCount++;
+                        });
+                    }
+                } catch (err) {
+                    console.error(`Error processing file ${files[i].name}:`, err);
+                }
+            }
+
+            updateGameDataFromLayers();
+            updateTeacherUI();
+
+            if (addedCount > 0 && drawnItems.getLayers().length > 0) {
+                map.fitBounds(drawnItems.getBounds());
+                alert(`Successfully loaded ${addedCount} items from ${files.length} file(s).`);
+            } else {
+                alert("No valid data found.");
+            }
+            input.value = ''; 
+        }
+
+        // --- Student Mode Logic ---
+        function startGame() {
+            updateGameDataFromLayers();
+
+            if (gameData.length === 0) {
+                alert("Please define or load at least one item first.");
+                return;
+            }
+
+            document.getElementById('teacher-controls').classList.add('hidden');
+            document.getElementById('student-controls').classList.remove('hidden');
+            document.getElementById('mode-badge').innerText = "Student Mode";
+            
+            map.removeLayer(osmLayer);
+            map.addLayer(blindLayer);
+            map.removeLayer(drawnItems);
+            
+            const toolbar = document.querySelector('.leaflet-draw');
+            if(toolbar) toolbar.style.display = 'none';
+
+            gameQueue = JSON.parse(JSON.stringify(gameData));
+            gameQueue.sort(() => Math.random() - 0.5); 
+            
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+
+            nextTurn();
+        }
+
+        function updateTimer() {
+            const diff = Math.floor((Date.now() - startTime) / 1000);
+            const m = Math.floor(diff / 60).toString().padStart(2, '0');
+            const s = (diff % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `Time: ${m}:${s}`;
+        }
+
+        function nextTurn() {
+            if (currentStudentLayer) {
+                if(map.hasLayer(currentStudentLayer)) map.removeLayer(currentStudentLayer);
+                currentStudentLayer = null;
+            }
+            document.getElementById('confirm-btn').style.display = 'none';
+
+            if (currentTurnIndex >= gameQueue.length) {
+                endGame();
+                return;
+            }
+
+            const target = gameQueue[currentTurnIndex];
+            document.getElementById('current-target-name').innerText = target.name;
+            // Update Details in Target Box (Optional: usually hidden to not give away clues, 
+            // but if you want to show details as a hint, uncomment next line)
+            // document.getElementById('current-target-details').innerText = target.details || "";
+            document.getElementById('current-target-details').innerText = ""; // Hide details during guess
+
+            enableStudentDraw(target.type);
+        }
+
+        function enableStudentDraw(type) {
+            if (currentDrawControl) currentDrawControl.disable();
+
+            if (type === 'marker') {
+                currentDrawControl = new L.Draw.Marker(map);
+                document.getElementById('instruction-text').innerText = "Click map to place marker.";
+            } else if (type === 'polyline') {
+                currentDrawControl = new L.Draw.Polyline(map, { allowIntersection: false });
+                document.getElementById('instruction-text').innerText = "Draw the line. Double click to finish.";
+            } else {
+                currentDrawControl = new L.Draw.Polygon(map, { allowIntersection: false, showArea: true });
+                document.getElementById('instruction-text').innerText = "Draw the area. Double click to finish.";
+            }
+            currentDrawControl.enable();
+        }
+
+        function confirmMove() {
+            if (!currentStudentLayer) return;
+
+            const target = gameQueue[currentTurnIndex];
+            const studentGeo = currentStudentLayer.toGeoJSON();
+            const correctGeo = JSON.parse(JSON.stringify(target.geojson));
+
+            let scoreText = "";
+
+            // --- Scoring Logic ---
+            if (target.type === 'marker') {
+                const from = turf.point(studentGeo.geometry.coordinates);
+                const to = turf.point(correctGeo.geometry.coordinates);
+                const distance = turf.distance(from, to, {units: 'kilometers'});
+                scoreText = `${distance.toFixed(1)} km off`;
+            } else {
+                try {
+                    let studentPoly, correctPoly;
+                    if (target.type === 'polyline') {
+                        studentPoly = turf.buffer(studentGeo, 5, {units: 'kilometers'});
+                        correctPoly = turf.buffer(correctGeo, 5, {units: 'kilometers'});
+                    } else {
+                        studentPoly = turf.polygon(studentGeo.geometry.coordinates);
+                        correctPoly = turf.polygon(correctGeo.geometry.coordinates);
+                    }
+                    const missed = turf.difference(correctPoly, studentPoly);
+                    const missedArea = missed ? turf.area(missed) : 0;
+                    const excess = turf.difference(studentPoly, correctPoly);
+                    const excessArea = excess ? turf.area(excess) : 0;
+                    const totalErrorSqKm = (missedArea + excessArea) / 1000000;
+                    scoreText = `${totalErrorSqKm.toFixed(1)} km² error`;
+                } catch (err) {
+                    console.error(err);
+                    scoreText = "Geometry Error";
+                }
+            }
+
+            // --- Visual Feedback ---
+            try {
+                // Prepare Tooltip Content
+                const tooltipContent = `
+                    <div style="text-align:center">
+                        <b>${target.name}</b>
+                        ${target.details ? '<br><small>' + target.details.replace(/\n/g, '<br>') + '</small>' : ''}
+                    </div>
+                `;
+
+                // Correct Layer (Green)
+                const correctLayer = L.geoJSON(correctGeo, {
+                    style: { color: 'green', weight: 4, fillOpacity: 0.4 },
+                    pointToLayer: function(feature, latlng) {
+                        return L.circleMarker(latlng, { color: 'green', radius: 8 });
+                    }
+                });
+                correctLayer.bindTooltip(tooltipContent, {permanent: true, direction: 'right', className: 'lbl-correct'});
+                resultsLayer.addLayer(correctLayer);
+
+                // Student Layer (Red)
+                const studentResultLayer = L.geoJSON(studentGeo, {
+                    style: { color: 'red', dashArray: '5, 5', weight: 3, fillOpacity: 0.2 },
+                    pointToLayer: function(feature, latlng) {
+                        return L.circleMarker(latlng, { color: 'red', radius: 6 });
+                    }
+                });
+                resultsLayer.addLayer(studentResultLayer);
+
+                // Connector Line
+                if (target.type === 'marker') {
+                    const studentLatLng = [studentGeo.geometry.coordinates[1], studentGeo.geometry.coordinates[0]];
+                    const correctLatLng = [correctGeo.geometry.coordinates[1], correctGeo.geometry.coordinates[0]];
+                    const connector = L.polyline([studentLatLng, correctLatLng], {
+                        color: 'red', weight: 2, dashArray: '5, 10', opacity: 0.6
+                    });
+                    resultsLayer.addLayer(connector);
+                }
+
+            } catch (e) { console.error("Visual Feedback Error:", e); }
+
+            // Cleanup
+            map.removeLayer(currentStudentLayer);
+            currentStudentLayer = null;
+
+            // Update Table with Details
+            const tableBody = document.querySelector('#score-table tbody');
+            const detailHtml = target.details ? `<span class="detail-text">${target.details.replace(/\n/g, '<br>')}</span>` : '';
+            const row = `<tr><td><b>${target.name}</b><br>${detailHtml}</td><td>${scoreText}</td></tr>`;
+            tableBody.innerHTML += row;
+
+            currentTurnIndex++;
+            nextTurn();
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            document.getElementById('instruction-text').innerText = "Game Over! Review your map.";
+            document.getElementById('current-target-name').innerText = "Finished";
+            document.getElementById('final-score').innerHTML = `
+                <div class="score-final">
+                    Total Time: ${document.getElementById('timer').innerText.replace('Time: ', '')}
+                </div>
+            `;
+            if(resultsLayer.getLayers().length > 0) map.fitBounds(resultsLayer.getBounds());
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

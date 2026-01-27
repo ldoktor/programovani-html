@@ -1,0 +1,1849 @@
+#separator:tab
+#html:false
+Bílá	White
+Černá	Black
+Modrá	Blue
+Hnědá	Brown
+Zelená	Green
+Šedá	Grey
+Oranžová	Orange
+Růžová	Pink
+Žlutá	Yellow
+Červená	Red
+Chlapec	Boy
+Pes	Dog
+Dívka	Girl
+Ahoj	Hello
+Na schledanou	Goodbye
+Já jsem ...	I'm ...
+Já jsem chlapec	I'm a boy
+Nejsem dívka	I am not a girl
+Taška, batoh	Bag
+Kniha	Book
+Pastelka	Crayon
+Poznámkový blok	Notebook
+Penál	Pencil case
+Guma	Rubber
+Pravítko	Ruler
+To je kniha	It's a book
+To je červené	It's red
+Dřevo	Wood
+Papír 	Paper
+Míč 	Ball
+Velký 	Big
+kolo 	Bike
+Panenka	Doll
+Kytara	Guitar
+Nový 	New
+Starý 	Old
+Koloběžka 	Scooter
+Malý 	Small
+Já mám panenku 	I've got (a doll)
+Je (starý/á)	It's old
+Buben	Drum
+Housle	Violin
+Příčná flétna 	Flute
+Trubka	Trumpet
+Leden	January
+Únor 	February
+Březen 	March
+Duben	April
+Květen 	May
+Červen 	June
+Červenec 	July
+Srpen	August
+Září 	September
+Říjen 	October
+Listopad 	November
+Prosinec	December
+Pondělí 	Monday
+Úterý 	Tuesday
+Středa 	Wednesday
+Čtvrtek 	Thursday
+Pátek 	Friday
+Sobota 	Saturday
+Neděle	Sunday
+Černá tabule	Blackboard
+Včela 	Bee
+Motýl 	Butterfly
+Méďa	Teddybear
+Housenka	Caterpillar
+Kostým	Costume
+Piáno 	Piano
+Rostlina	Plant
+Kalendář 	Calendar
+Skříňka 	Cabinet
+Stůl 	Desk
+Hodiny	Clock
+Čas 	Time
+Slunéčko sedmitečné 	Ladybug
+Sklenice	Cup
+Obrázek	Picture
+Štětec 	Paintbrush
+Křída 	Chalk
+Hello	Ahoj
+Drum	Buben
+White	Bílá
+March	Březen 
+Boy	Chlapec
+April	Duben
+Girl	Dívka
+Wood	Dřevo
+Rubber	Guma
+Brown	Hnědá
+Clock	Hodiny
+Caterpillar	Housenka
+Violin	Housle
+It's old	Je (starý/á)
+I'm ...	Já jsem ...
+I'm a boy	Já jsem chlapec
+I've got (a doll)	Já mám panenku 
+Calendar	Kalendář 
+Bike	kolo 
+Book	Kniha
+Scooter	Koloběžka 
+Costume	Kostým
+May	Květen 
+Guitar	Kytara
+Chalk	Křída 
+January	Leden
+November	Listopad 
+Small	Malý 
+Teddybear	Méďa
+Blue	Modrá
+Butterfly	Motýl 
+Ball	Míč 
+Goodbye	Na schledanou
+Sunday	Neděle
+I am not a girl	Nejsem dívka
+New	Nový 
+Picture	Obrázek
+Orange	Oranžová
+Doll	Panenka
+Paper	Papír 
+Crayon	Pastelka
+Pencil case	Penál
+Dog	Pes
+Piano	Piáno 
+Monday	Pondělí 
+Notebook	Poznámkový blok
+Ruler	Pravítko
+December	Prosinec
+Friday	Pátek 
+Flute	Příčná flétna 
+Plant	Rostlina
+Pink	Růžová
+Cup	Sklenice
+Cabinet	Skříňka 
+Ladybug	Slunéčko sedmitečné 
+Saturday	Sobota 
+August	Srpen
+Old	Starý 
+Desk	Stůl 
+Blackboard	Černá tabule
+Bag	Taška, batoh
+It's a book	To je kniha
+It's red	To je červené
+Trumpet	Trubka
+Big	Velký 
+Bee	Včela 
+Green	Zelená
+September	Září 
+February	Únor 
+Tuesday	Úterý 
+Time	Čas 
+Black	Černá
+June	Červen 
+July	Červenec 
+Red	Červená
+Thursday	Čtvrtek 
+October	Říjen 
+Grey	Šedá
+Paintbrush	Štětec 
+Yellow	Žlutá
+Kočka 	Cat
+Cat	Kočka 
+Kuře 	Chicken
+Chicken	Kuře 
+Kráva	Cow
+Cow	Kráva
+Kachna	Duck
+Duck	Kachna
+Farma	Farm
+Farm	Farma
+Koza	Goat
+Goat	Koza
+Kůň 	Horse
+Horse	Kůň 
+Králík	Rabbit
+Rabbit	Králík
+Ovce	Sheep
+Sheep	Ovce
+Traktor	Tractor
+Tractor	Traktor
+Vidím kuře 	I can see (a chicken)
+I can see (a chicken)	Vidím kuře 
+Učitel	Teacher
+Teacher	Učitel
+Jablko	Apple
+Apple	Jablko
+Banán	Banana
+Banana	Banán
+Dort, koláč 	Cake
+Cake	Dort, koláč 
+Meloun	Melone
+Melone	Meloun
+Oliva	Olive
+Olive	Oliva
+Pomeranč 	Orange
+Orange	Pomeranč 
+Broskev	Peach
+Peach	Broskev
+Hruška	Pear
+Pear	Hruška
+Párek 	Sausage
+Sausage	Párek 
+Rajče 	Tomato
+Tomato	Rajče 
+Mám rád (jablka)	I like (apples)
+I like (apples)	Mám rád (jablka)
+Nemám rád (olivy)	I don't likes (olives)
+I don't likes (olives)	Nemám rád (olivy)
+Mléko 	Milk
+Milk	Mléko 
+Zmrzlina 	Ice cream
+Ice cream	Zmrzlina 
+Máslo 	Butter
+Butter	Máslo 
+Sýr 	Cheese
+Cheese	Sýr 
+Tráva 	Grass
+Grass	Tráva 
+Rozzlobený 	Angry
+Angry	Rozzlobený 
+Táta 	Dad
+Dad	Táta 
+Dědeček 	Grandad
+Grandad	Dědeček 
+Babička 	Granny
+Granny	Babička 
+Šťastný 	Happy
+Happy	Šťastný 
+Máma 	Mum
+Mum	Máma 
+Smutný 	Sad
+Sad	Smutný 
+Sestra	Sister
+Sister	Sestra
+Unavený 	Tired
+Tired	Unavený 
+To je (můj bratr)	This is (my brother)
+This is (my brother)	To je (můj bratr)
+On je (smutný)	He's (sad)
+He's (sad)	On je (smutný)
+Ona je (šťastná)	She's (happy)
+She's (happy)	Ona je (šťastná)
+Hello	Ahoj
+Ahoj	Hello
+Hi	Čau
+Čau	Hi
+One	Jedna
+Jedna	One
+Two	Dva
+Dva	Two
+Three	Tři
+Tři	Three
+Four	Čtyři
+Čtyři	Four
+Five	Pět
+Pět	Five
+Six	Šest
+Šest	Six
+Seven	Sedm
+Sedm	Seven
+Eight	Osm
+Osm	Eight
+Nine	Devět
+Devět	Nine
+Ten	Deset
+Deset	Ten
+Black	Černá
+Černá	Black
+White	Bílá
+Bílá	White
+Red	Červená
+Červená	Red
+Orange	Oranžová
+Oranžová	Orange
+Yellow	Žlutá
+Žlutá	Yellow
+Green	Zelená
+Zelená	Green
+Purple	Fialová / vínová 
+Fialová / vínová 	Purple
+Blue	Modrá
+Modrá	Blue
+Brown	Hnědá
+Hnědá	Brown
+Pink	Růžová
+Růžová	Pink
+Grey	Šedivá
+Šedivá	Grey
+Gold	Zlatá
+Zlatá	Gold
+Rainbow	Duha
+Duha	Rainbow
+Unicorn	Jednorožec
+Jednorožec	Unicorn
+Dog	Pes
+Pes	Dog
+Car	Auto
+Auto	Car
+Dalekohled 	Binoculars
+Binoculars	Dalekohled 
+Fotoaparát 	Camera
+Camera	Fotoaparát 
+Mapa	Map
+Map	Mapa
+Baterka/louč 	Torch
+Torch	Baterka/louč 
+Hodinky 	Watch
+Watch	Hodinky 
+Já jsem (Toby)	I'm (Toby)
+I'm (Toby)	Já jsem (Toby)
+Je mi (9)	I'm (9)
+I'm (9)	Je mi (9)
+To je (Ella)	This Is (Ella)
+This Is (Ella)	To je (Ella)
+On je (můj kamarád)	He's (my friend)
+He's (my friend)	On je (můj kamarád)
+Ona je (moje sestra)	She's (my sister)
+She's (my sister)	Ona je (moje sestra)
+My jsme (průzkumníci)	We're (explorers)
+We're (explorers)	My jsme (průzkumníci)
+On má (tašku/batoh)	He's got (the bag)
+He's got (the bag)	On má (tašku/batoh)
+Ona má (hodinky)	She's got (a watch)
+She's got (a watch)	Ona má (hodinky)
+Pták 	Bird
+Bird	Pták 
+Loď 	Boat
+Boat	Loď 
+Ryba	Fish
+Fish	Ryba
+Květina 	Flower
+Flower	Květina 
+Dům 	House
+House	Dům 
+Jezero	Lake
+Lake	Jezero
+Hora	Mountain
+Mountain	Hora
+Řeka 	River
+River	Řeka 
+Stan	Tent
+Tent	Stan
+Strom	Tree
+Tree	Strom
+Je tam (jezero)	There's a (lake)
+There's a (lake)	Je tam (jezero)
+Jsou tam (květiny)	There are (flowers)
+There are (flowers)	Jsou tam (květiny)
+Zataženo, oblačno 	Cloudy
+Cloudy	Zataženo, oblačno 
+Sněží 	(It's) snowing
+(It's) snowing	Sněží 
+(Je) slunečno 	(It's) sunny
+(It's) sunny	(Je) slunečno 
+Prší 	(It's) raining
+(It's) raining	Prší 
+Pero	Pen
+Pen	Pero
+Tužka	Pencil
+Pencil	Tužka
+Taška/batoh	Bag
+Bag	Taška/batoh
+Školní taška	School bag
+School bag	Školní taška
+Sešit	Exercise book
+Exercise book	Sešit
+Šunka 	Ham
+Ham	Šunka 
+Džus 	Juice
+Juice	Džus 
+Houby	Mashrooms
+Mashrooms	Houby
+2 cibule	Onions
+Onions	2 cibule
+Papriky	Peppers
+Peppers	Papriky
+Pizza	Pizza
+Pizza	Pizza
+Salát 	Salad
+Salad	Salát 
+Moje oblíbené (jídlo) je (pizza)	My favorite (food) is (pizza)
+My favorite (food) is (pizza)	Moje oblíbené (jídlo) je (pizza)
+Máme rádi (sýr)	We like (cheese)
+We like (cheese)	Máme rádi (sýr)
+Nemáme rádi (papriky)	We don't like (peppers)
+We don't like (peppers)	Nemáme rádi (papriky)
+Židle	Chair
+Chair	Židle
+Koloběžka	Scooter
+Scooter	Koloběžka
+Míč	Ball
+Ball	Míč
+Auto	Car
+Car	Auto
+Mladý 	Young
+Young	Mladý 
+Nejlehčí 	The easiest
+The easiest	Nejlehčí 
+Lehčí 	Easier
+Easier	Lehčí 
+Lehký 	Easy
+Easy	Lehký 
+Středně těžké	Medium
+Medium	Středně těžké
+Těžké 	Hard
+Hard	Těžké 
+Těžší 	Harder
+Harder	Těžší 
+Nejtěžší 	The hardest
+The hardest	Nejtěžší 
+Pomalu	Slowly
+Slowly	Pomalu
+Svižně 	Quickly
+Quickly	Svižně 
+Pomalý 	Slow
+Slow	Pomalý 
+Rychle	Fast
+Fast	Rychle
+Zebra	Zebra
+Zebra	Zebra
+Tučňák	Penguin
+Penguin	Tučňák
+Gorila	Gorilla
+Gorilla	Gorila
+Plameňák	Flamingo
+Flamingo	Plameňák
+Želva	Turtle
+Turtle	Želva
+Krokodýl	Crocodile
+Crocodile	Krokodýl
+Lev	Lion
+Lion	Lev
+Medvěd	Bear
+Bear	Medvěd
+Vlk	Wolf
+Wolf	Vlk
+Nosorožec	Rhinoceros
+Rhinoceros	Nosorožec
+Žirafa 	Giraffe
+Giraffe	Žirafa 
+Rabbit	Králík
+Králík	Rabbit
+Duck	Kachna
+Kachna	Duck
+Food	Jídlo
+Jídlo	Food
+Miminko	Baby
+Baby	Miminko
+Láhev	Bottle
+Bottle	Láhev
+Motýl	Butterfly
+Butterfly	Motýl
+Kolečkové brusle	Roller skates
+Roller skates	Kolečkové brusle
+Kytka	Flower
+Flower	Kytka
+Badmintonova raketa	Badminton rocket
+Badminton rocket	Badmintonova raketa
+Trampolína	Trampolin
+Trampolin	Trampolína
+Kočárek	Pram
+Pram	Kočárek
+Žába	Frog
+Frog	Žába
+Lavička	Bench
+Bench	Lavička
+Chleba	Bread
+Bread	Chleba
+Veverka	Squirrel
+Squirrel	Veverka
+Jezírko	Pond
+Pond	Jezírko
+Frisbee	Frisbee
+Frisbee	Frisbee
+Popelnice	Garbage can
+Garbage can	Popelnice
+Jedenáct 	Eleven
+Eleven	Jedenáct 
+Jedenáct	Eleven
+Eleven	Jedenáct
+Dvanáct 	Twelve
+Twelve	Dvanáct 
+Dvanáct	Twelve
+Twelve	Dvanáct
+Třináct 	Thirteen
+Thirteen	Třináct 
+Třináct	Thirteen
+Thirteen	Třináct
+Čtrnáct 	Fourteen
+Fourteen	Čtrnáct 
+Čtrnáct	Fourteen
+Fourteen	Čtrnáct
+Patnáct 	Fifteen
+Fifteen	Patnáct 
+Patnáct	Fifteen
+Fifteen	Patnáct
+Šestnáct 	Sixteen
+Sixteen	Šestnáct 
+Šestnáct	Sixteen
+Sixteen	Šestnáct
+Sedmnáct 	Seventeen
+Seventeen	Sedmnáct 
+Sedmnáct	Seventeen
+Seventeen	Sedmnáct
+Osmnáct 	Eighteen
+Eighteen	Osmnáct 
+Osmnáct	Eighteen
+Eighteen	Osmnáct
+Devatenáct 	Nineteen
+Nineteen	Devatenáct 
+Devatenáct	Nineteen
+Nineteen	Devatenáct
+Dvacet 20 	Twenty
+Twenty	Dvacet 20 
+Dvacet	Twenty
+Twenty	Dvacet
+Pondělí	Monday
+Monday	Pondělí
+Úterý	Tuesday
+Tuesday	Úterý
+Středa	Wednesday
+Wednesday	Středa
+Čtvrtek	Thursday
+Thursday	Čtvrtek
+Pátek	Friday
+Friday	Pátek
+Sobota	Saturday
+Saturday	Sobota
+Batoh	Backpack
+Backpack	Batoh
+Pásek 	Belt
+Belt	Pásek 
+Pásek	Belt
+Belt	Pásek
+Čepice 	Cap
+Cap	Čepice 
+Čepice	Cap hat
+Cap hat	Čepice
+Kabát 	Coat
+Coat	Kabát 
+Kabát	Coat
+Coat	Kabát
+Brýle	Glasses
+Glasses	Brýle
+Brýle	Glasses
+Glasses	Brýle
+Šála 	Scarf
+Scarf	Šála 
+Šála	Scarf
+Scarf	Šála
+Boty na běhání 	Trainers
+Trainers	Boty na běhání 
+Boty na běhání	Trainers
+Trainers	Boty na běhání
+Hodinky	Watch
+Watch	Hodinky
+Tmavý 	Dark
+Dark	Tmavý 
+Tmavý	Dark
+Dark	Tmavý
+Světlý / blond	Fair
+Fair	Světlý / blond
+Dlouhé 	Long
+Long	Dlouhé 
+Krátké 	Short
+Short	Krátké 
+Krátké	Short
+Short	Krátké
+Koupelna 	Bathroom
+Bathroom	Koupelna 
+Koupelna	Bathroom
+Bathroom	Koupelna
+Ložnice 	Bedroom
+Bedroom	Ložnice 
+Ložnice	Bedroom
+Bedroom	Ložnice
+Garáž 	Garage
+Garage	Garáž 
+Garáž	Garage
+Garage	Garáž
+Zahrada	Garden
+Garden	Zahrada
+Předsíň 	Hall
+Hall	Předsíň 
+Předsíň	Hall
+Hall	Předsíň
+Kuchyně 	Kitchen
+Kitchen	Kuchyně 
+Kuchyně	Kitchen
+Kitchen	Kuchyně
+Obývací pokoj	Living room
+Living room	Obývací pokoj
+Obývací pokoj	Living room
+Living room	Obývací pokoj
+Schody	Stairs
+Stairs	Schody
+Kuře	Chicken
+Chicken	Kuře
+Osel	Donkey
+Donkey	Osel
+Osel	Donkey
+Donkey	Osel
+Husa	Goose
+Goose	Husa
+Husa	Goose
+Goose	Husa
+Krocan	Turkey
+Turkey	Krocan
+Nábytek 	Furniture
+Furniture	Nábytek 
+Nábytek	Furniture
+Furniture	Nábytek
+Postel	Bed
+Bed	Postel
+Lampa	Lamp
+Lamp	Lampa
+Pohovka	Sofa
+Sofa	Pohovka
+Stůl	Table/desk
+Table/desk	Stůl
+Dům	House
+House	Dům
+Venku	Outdoors
+Outdoors	Venku
+Keř 	Bush
+Bush	Keř 
+Keř	Bush
+Bush	Keř
+Plot	Fence
+Fence	Plot
+Skála 	Rock
+Rock	Skála 
+Skála	Rock
+Rock	Skála
+Stěna 	Wall
+Wall	Stěna 
+Stěna	Wall
+Wall	Stěna
+Co je toto / tamto?	What's this / that?
+What's this / that?	Co je toto / tamto?
+To je moje (pero).	This is my (pen)
+This is my (pen)	To je moje (pero).
+On / ona má (brýle).	He's / she's got (glasses).
+He's / she's got (glasses).	On / ona má (brýle).
+Kde je (Peanut)?	Where is (Peanut)?
+Where is (Peanut)?	Kde je (Peanut)?
+On je (na zahradě)	He's in (the garden)
+He's in (the garden)	On je (na zahradě)
+Je (vedle stolu).	It's (next to the table)
+It's (next to the table)	Je (vedle stolu).
+Je (na stole)	It's (on the table)
+It's (on the table)	Je (na stole)
+Hmyz	Insect
+Insect	Hmyz
+Brouk	Beetle
+Beetle	Brouk
+Mravenec	Ant
+Ant	Mravenec
+Včelka	Bee
+Bee	Včelka
+Motýl 🦋	Butterfly
+Butterfly	Motýl 🦋
+Kobilka	Graashopper
+Graashopper	Kobilka
+Vážka	Dragonfly
+Dragonfly	Vážka
+Světluška	Firefly
+Firefly	Světluška
+Komár	Mosquito
+Mosquito	Komár
+Moucha	Fly
+Fly	Moucha
+Pavouk	Spider
+Spider	Pavouk
+Cvrček	Cricket
+Cricket	Cvrček
+Šváb	Roach
+Roach	Šváb
+List	Leaf
+Leaf	List
+Klacek	Stick
+Stick	Klacek
+Kámen	Stone
+Stone	Kámen
+Tráva	Grass
+Grass	Tráva
+Semínko	Seed
+Seed	Semínko
+Rozzlobený	Angry
+Angry	Rozzlobený
+Bratr	Brother
+Brother	Bratr
+Táta	Dad
+Dad	Táta
+Dědeček	Grandad
+Grandad	Dědeček
+Babička	Granny
+Granny	Babička
+Šťastný	Happy
+Happy	Šťastný
+Máma	Mum
+Mum	Máma
+Smutný	Sad
+Sad	Smutný
+Unavený	Tired
+Tired	Unavený
+Svatba	Wedding
+Wedding	Svatba
+Nový dům	New house
+New house	Nový dům
+Narozeniny	Birthday
+Birthday	Narozeniny
+Nové miminko	New baby
+New baby	Nové miminko
+Je (pondělí)	It's (Monday)
+It's (Monday)	Je (pondělí)
+Je (deštivo)	It's (rainy)
+It's (rainy)	Je (deštivo)
+Co je tohle/tamto?	What's this/that
+What's this/that	Co je tohle/tamto?
+To je moje (pero)	This is my (pen)
+This is my (pen)	To je moje (pero)
+To je tvé (pravítko)	That's your (ruler)
+That's your (ruler)	To je tvé (pravítko)
+Kolik (tužek)?	How many (pencils)?
+How many (pencils)?	Kolik (tužek)?
+Máš (hodinky)?	Have you got (a watch)?
+Have you got (a watch)?	Máš (hodinky)?
+Ano, mám.	Yes, I have.
+Yes, I have.	Ano, mám.
+Ne, nemám.	No, I haven't.
+No, I haven't.	Ne, nemám.
+On má (brýle)	He's got (glasses)
+He's got (glasses)	On má (brýle)
+Kde je (Oříšek)?	Where's (Peanut)?
+Where's (Peanut)?	Kde je (Oříšek)?
+Je na (zahradě)	He's in (the garden)
+He's in (the garden)	Je na (zahradě)
+Kde je (lampa)?	Where's (the lamp)?
+Where's (the lamp)?	Kde je (lampa)?
+Je vedle (stolu)	It's next to (the table)
+It's next to (the table)	Je vedle (stolu)
+Je na (stole)	It's on (the table)
+It's on (the table)	Je na (stole)
+Tam je (kůň)	There's (a horse)
+There's (a horse)	Tam je (kůň)
+Tam není (kráva)	There isn't (a cow)
+There isn't (a cow)	Tam není (kráva)
+Kde je (kráva)?	Where's (the cow)?
+Where's (the cow)?	Kde je (kráva)?
+Je za (stěnou)	It's behind (the wall)
+It's behind (the wall)	Je za (stěnou)
+Stavitel	Builder
+Builder	Stavitel
+Kuchař	Chef
+Chef	Kuchař
+Kuchař 	Chef
+Chef	Kuchař 
+Průzkumník	Explorer
+Explorer	Průzkumník
+Průzkumník 	Explorer
+Explorer	Průzkumník 
+Učitel 	Teacher
+Teacher	Učitel 
+Jeskyně	Cave
+Cave	Jeskyně
+Iglú	Igloo
+Igloo	Iglú
+Iglú	Igloo
+Igloo	Iglú
+Dům na stromě	Treehouse
+Treehouse	Dům na stromě
+Dům na stromě 	Treehouse
+Treehouse	Dům na stromě 
+Slyšet	Hear
+Hear	Slyšet
+Slyšet 	Hear
+Hear	Slyšet 
+Vidět 	See
+See	Vidět 
+Cítit (pach)	Smell
+Smell	Cítit (pach)
+Ochutnat 	Taste
+Taste	Ochutnat 
+Ochutnat	Taste
+Taste	Ochutnat
+Dotek	Touch
+Touch	Dotek
+Chytit	Catch
+Catch	Chytit
+Kopnout	Kick
+Kick	Kopnout
+Jet	Ride
+Ride	Jet
+Přeskočit	Skip
+Skip	Přeskočit
+Desková hra	Board game
+Board game	Desková hra
+Hrát na kytaru	Play the guitar
+Play the guitar	Hrát na kytaru
+Ano, umím	Yes, I can
+Yes, I can	Ano, umím
+Ne, neumím.	No, I can't.
+No, I can't.	Ne, neumím.
+Ale umím (plavat)	But I can (swim)
+But I can (swim)	Ale umím (plavat)
+Umí hrát (tenis)?	Can (he) play (tennis)?
+Can (he) play (tennis)?	Umí hrát (tenis)?
+Ne, neumí	No, (he) can't
+No, (he) can't	Ne, neumí
+Bubny	Drums
+Drums	Bubny
+Piáno	Piano
+Piano	Piáno
+Klub	A club
+A club	Klub
+Hamburger	Burger
+Burger	Hamburger
+Cereálie	Cereal
+Cereal	Cereálie
+Džus	Juice
+Juice	Džus
+Růst	Grow
+Grow	Růst
+Umývat	Wash
+Wash	Umývat
+(Jím)	I'm (eating)
+I'm (eating)	(Jím)
+(Vaříš)?	Are you (cooking)?
+Are you (cooking)?	(Vaříš)?
+Pojízdné občerstvení	A food truck bar
+A food truck bar	Pojízdné občerstvení
+Chytat	Catch
+Catch	Chytat
+Lézt/šplhat	Climb
+Climb	Lézt/šplhat
+Kopnout	Kick
+Kick	Kopnout
+Jezdit	Ride
+Ride	Jezdit
+Bruslit	Skate
+Skate	Bruslit
+Skákat	Skip
+Skip	Skákat
+Plavat	Swim
+Swim	Plavat
+Houpat se	Swing
+Swing	Houpat se
+Stolní hra	A board game
+A board game	Stolní hra
+Fotbal	Football
+Football	Fotbal
+Tenis	Tennis
+Tennis	Tenis
+Umíš skákat?	Can you(skip)?
+Can you(skip)?	Umíš skákat?
+Umím.	I can.
+I can.	Umím.
+Neumím.	No,I can't.
+No,I can't.	Neumím.
+Ale umím plavat.	But I can (swim).
+But I can (swim).	Ale umím plavat.
+Umí hrát tenis?	Can (he) play tenis?
+Can (he) play tenis?	Umí hrát tenis?
+Neumí. 	No, he can't.
+No, he can't.	Neumí. 
+Ano, umí 	Yes, he can
+Yes, he can	Ano, umí 
+Klavir	Piano
+Piano	Klavir
+Záznamník	Recorder
+Recorder	Záznamník
+Housle	Violin
+Violin	Housle
+Sušenka	Biscuit
+Biscuit	Sušenka
+Hamburger 	Burger
+Burger	Hamburger 
+Mrkev 🥕	Carrot
+Carrot	Mrkev 🥕
+Cereálie/křupky	Cereal
+Cereal	Cereálie/křupky
+Vejce 	Egg
+Egg	Vejce 
+Dzus	Juice
+Juice	Dzus
+Pomeranč	Orange
+Orange	Pomeranč
+Vařit	Cook
+Cook	Vařit
+Pěstovat	Grow
+Grow	Pěstovat
+Vyrábět	Make
+Make	Vyrábět
+Mýt	Wash
+Wash	Mýt
+Co děláš?	What are you doing?
+What are you doing?	Co děláš?
+Jím.	I'm eating.
+I'm eating.	Jím.
+Vaříš?	Are you cooking?
+Are you cooking?	Vaříš?
+Ano.	Yes I am.
+Yes I am.	Ano.
+Ne.	No, I'm not.
+No, I'm not.	Ne.
+Máslo	Butter
+Butter	Máslo
+Mouka	Flour
+Flour	Mouka
+Ovoce	Fruit
+Fruit	Ovoce
+Zelenina	Vegetables
+Vegetables	Zelenina
+Dodávka s občerstvením 	A food truck bar
+A food truck bar	Dodávka s občerstvením 
+Lékárna 	Pharmacy
+Pharmacy	Lékárna 
+Telefonní budka	Telephone box
+Telephone box	Telefonní budka
+Helma	Helmet
+Helmet	Helma
+Knihkupectví 	Bookshop
+Bookshop	Knihkupectví 
+Obchod s oblečením 	Clothes shop
+Clothes shop	Obchod s oblečením 
+Obchod s obuví 	Shoe store
+Shoe store	Obchod s obuví 
+Turista	Tourist
+Tourist	Turista
+Kolo	Bike
+Bike	Kolo
+Dvoupatrový autobus 	Double-decker bus
+Double-decker bus	Dvoupatrový autobus 
+Semafor	Traffic light
+Traffic light	Semafor
+Pekárna 	Bakery stall
+Bakery stall	Pekárna 
+Řeznictví 	Butchery store
+Butchery store	Řeznictví 
+Klobása 	Sausage
+Sausage	Klobása 
+Med	Honey
+Honey	Med
+Jogurt	Yoghurt
+Yoghurt	Jogurt
+Vejce	Egg
+Egg	Vejce
+Rajčata	Tomatoes
+Tomatoes	Rajčata
+Mrkev	Carrot
+Carrot	Mrkev
+Brambor	Potato
+Potato	Brambor
+Fontána 	Water fountain
+Water fountain	Fontána 
+Stánek s medem	Honey stall
+Honey stall	Stánek s medem
+Stánek s mléčnými výrobky 	Diary stall
+Diary stall	Stánek s mléčnými výrobky 
+Stánek se zeleninou 	Vegetables stall
+Vegetables stall	Stánek se zeleninou 
+Schránka na dopisy 	Letter box
+Letter box	Schránka na dopisy 
+Pouliční hodiny	Clock tower
+Clock tower	Pouliční hodiny
+Stánek s ovocem	Fruit stall
+Fruit stall	Stánek s ovocem
+Banán 	Banana
+Banana	Banán 
+Hruška 	Pear
+Pear	Hruška 
+Borůvka	Blueberry
+Blueberry	Borůvka
+Jahoda	Strawberry
+Strawberry	Jahoda
+Třešeň 	Cherry
+Cherry	Třešeň 
+Holub	Pigeon
+Pigeon	Holub
+Přechod pro chodce	Zebra crossing
+Zebra crossing	Přechod pro chodce
+Plakát 	Poster
+Poster	Plakát 
+Trh	Market
+Market	Trh
+Město 	City
+City	Město 
+Moře	Sea
+Sea	Moře
+Písek 	Sand
+Sand	Písek 
+Hrad z písku 	Sandcastle
+Sandcastle	Hrad z písku 
+Kyblík 	Bucket
+Bucket	Kyblík 
+Lopatka 	Spade
+Spade	Lopatka 
+Ručník	Towel
+Towel	Ručník
+Oko	Eye
+Eye	Oko
+Pusa	Mouth
+Mouth	Pusa
+Hlava	Head
+Head	Hlava
+Obličej	Face
+Face	Obličej
+Obličej 	Face
+Face	Obličej 
+Paže	Arm
+Arm	Paže
+Nos	Nose
+Nose	Nos
+Ruka	Hand
+Hand	Ruka
+Oči	Eyes
+Eyes	Oči
+Noha	Leg
+Leg	Noha
+Ucho	Ear
+Ear	Ucho
+Chodidlo 	Foot
+Foot	Chodidlo 
+Ocas	Tail
+Tail	Ocas
+Abeceda 	Alphabet
+Alphabet	Abeceda 
+Abeceda	Alphabet
+Alphabet	Abeceda
+Písmeno/dopis 	Letter
+Letter	Písmeno/dopis 
+Písmeno/DOPIS	Letter
+Letter	Písmeno/DOPIS
+Kreslit	Draw
+Draw	Kreslit
+Malovat	Draw
+Draw	Malovat
+Říct	Say
+Say	Říct
+Hláskovat	Spell
+Spell	Hláskovat
+Hračka	Toy
+Toy	Hračka
+Ponožky	Sock
+Sock	Ponožky
+Ponožka	Sock
+Sock	Ponožka
+Barvit/barva	Colour
+Colour	Barvit/barva
+Psát	Write
+Write	Psát
+Adresa	Address
+Address	Adresa
+Ulice	Street
+Street	Ulice
+Její	Her
+Her	Její
+Jeho	His
+His	Jeho
+Onoho	Its
+Its	Onoho
+Jak se to hláskuje	How do you spell that?
+How do you spell that?	Jak se to hláskuje
+Jak to vyhláskuješ?	How do you spell that
+How do you spell that	Jak to vyhláskuješ?
+Pták	Bird
+Bird	Pták
+Loď	Boat
+Boat	Loď
+Létací drak	Kite
+Kite	Létací drak
+Jakou máš barvu vlasů?	What colour is your hair?
+What colour is your hair?	Jakou máš barvu vlasů?
+Jakou máš barvu vlasů	What color is your hair
+What color is your hair	Jakou máš barvu vlasů
+Krabice	Box
+Box	Krabice
+Kříž	Cross
+Cross	Kříž
+Příklad 	Example
+Example	Příklad 
+Příklad	Example
+Example	Příklad
+Linka/čára	Line
+Line	Linka/čára
+Čára	Line
+Line	Čára
+Otázka	Question
+Question	Otázka
+Otázka 	question
+question	Otázka 
+Věta	Sentence
+Sentence	Věta
+Zkouška	Test
+Test	Zkouška
+Zkouška 	Test
+Test	Zkouška 
+Zaškrtnout	Tick
+Tick	Zaškrtnout
+Slovo	Word
+Word	Slovo
+Včela	Bee
+Bee	Včela
+Odpověď	Answer
+Answer	Odpověď
+Odpověď 	Answer
+Answer	Odpověď 
+Dát	Put
+Put	Dát
+Tělo	Body
+Body	Tělo
+Tancovat	Dance
+Dance	Tancovat
+Jet na kole	Ride a bike
+Ride a bike	Jet na kole
+Krokodýl 	Crocodile
+Crocodile	Krokodýl 
+Slon 	Elephant
+Elephant	Slon 
+Žirafa	Giraffe
+Giraffe	Žirafa
+Kůň	Horse
+Horse	Kůň
+Zoo	Zoo
+Zoo	Zoo
+Myš	Mouse
+Mouse	Myš
+Velké 	Big
+Big	Velké 
+Velký	Big
+Big	Velký
+Dlouhé	Long
+Long	Dlouhé
+Dlouhý	Long
+Long	Dlouhý
+Malý	Small
+Small	Malý
+Počítač	Computer
+Computer	Počítač
+Klávesnice 	Keyboard
+Keyboard	Klávesnice 
+Robot 	Robot
+Robot	Robot 
+Opice 	Monkey
+Monkey	Opice 
+Klávesnice	Keyboard
+Keyboard	Klávesnice
+Dívat se	Look
+Look	Dívat se
+Robot	Robot
+Robot	Robot
+Vidět	See
+See	Vidět
+Sednout	Sit
+Sit	Sednout
+Poslouchat	Listen
+Listen	Poslouchat
+Smát se	Smile
+Smile	Smát se
+Běžet	Run
+Run	Běžet
+Mávat	Wave
+Wave	Mávat
+Usmívat se	Smile
+Smile	Usmívat se
+Kabelka	Handbag
+Handbag	Kabelka
+Džíny 	Jeans
+Jeans	Džíny 
+Hod kostkou	Throw the dice
+Throw the dice	Hod kostkou
+Tričko 	Shirt
+Shirt	Tričko 
+Kraťasy	Short
+Short	Kraťasy
+Sukně 	Skirt
+Skirt	Sukně 
+Kalhoty 	Trousers
+Trousers	Kalhoty 
+Krátké tričko 	T-shirt
+T-shirt	Krátké tričko 
+Vysoká bota	Boot
+Boot	Vysoká bota
+Šaty	Dress
+Dress	Šaty
+Kabelka	Handbag
+Handbag	Kabelka
+Nosit (na sobě) 	Wear
+Wear	Nosit (na sobě) 
+Bunda	Jacket
+Jacket	Bunda
+Džíny	Jeans
+Jeans	Džíny
+Oblíbené	Favourite
+Favourite	Oblíbené
+Triko	Shirt
+Shirt	Triko
+Zeď	Wall
+Wall	Zeď
+Sukně	Skirt
+Skirt	Sukně
+Kalhoty	Trousers
+Trousers	Kalhoty
+Příběh	Story
+Story	Příběh
+Krátké tričko	T-shirt
+T-shirt	Krátké tričko
+Pít	Drink
+Drink	Pít
+Nosit (na sobě)	Wear
+Wear	Nosit (na sobě)
+Mít	Have got
+Have got	Mít
+Oblíbený	Favourite
+Favourite	Oblíbený
+Držet	Hold
+Hold	Držet
+Nový	New
+New	Nový
+Květina	Flower
+Flower	Květina
+Učit se	Learn
+Learn	Učit se
+Mít rád 	Like
+Like	Mít rád 
+Mám	Have got
+Have got	Mám
+Milovat 	Love
+Love	Milovat 
+Číst 	Read
+Read	Číst 
+Učit se o ...	Learn about ...
+Learn about ...	Učit se o ...
+Krásný 	Beautiful
+Beautiful	Krásný 
+Mít rád	Like
+Like	Mít rád
+Vtipný 	Funny
+Funny	Vtipný 
+Milovat	Love
+Love	Milovat
+Číst	Read
+Read	Číst
+Nádherný	Beautiful
+Beautiful	Nádherný
+Vtipný	Funny
+Funny	Vtipný
+Děsivý	Scary
+Scary	Děsivý
+Hloupoučký ,(vtipný)	Silly
+Silly	Hloupoučký ,(vtipný)
+Veselý	Happy
+Happy	Veselý
+Ošklivý	Ugly
+Ugly	Ošklivý
+Opravdu 	Really
+Really	Opravdu 
+Hloupý/zvláštní	Silly
+Silly	Hloupý/zvláštní
+Hodně	Very
+Very	Hodně
+Opravdu	Really
+Really	Opravdu
+Velmi	Very
+Very	Velmi
+Zvíře	Animal
+Animal	Zvíře
+Kočka	Cat
+Cat	Kočka
+Zvíře 	Animal
+Animal	Zvíře 
+Kachna 	Duck
+Duck	Kachna 
+Slon	Elephant
+Elephant	Slon
+Žába 	Frog
+Frog	Žába 
+Hroch	Hippo
+Hippo	Hroch
+Ještěrka 	Lizard
+Lizard	Ještěrka 
+Opice	Monkey
+Monkey	Opice
+Myš 	Mouse
+Mouse	Myš 
+Had	Snake
+Snake	Had
+Tygr	Tiger
+Tiger	Tygr
+Ovce 	Sheep
+Sheep	Ovce 
+Tělo 	Body
+Body	Tělo 
+Chodidlo	Foot
+Foot	Chodidlo
+Chodidla	Feet
+Feet	Chodidla
+Vlasy	Hair
+Hair	Vlasy
+Tygr 	Tiger
+Tiger	Tygr 
+Uši	Ear
+Ear	Uši
+Úsměv 	Smile
+Smile	Úsměv 
+Taška 	Bag
+Bag	Taška 
+Oblečení 	Clothes
+Clothes	Oblečení 
+Šaty 	Dress
+Dress	Šaty 
+Brýle 	Glasses
+Glasses	Brýle 
+Dlaně	Hand
+Hand	Dlaně
+Bota	Shoe
+Shoe	Bota
+Ponožka 	Sock
+Sock	Ponožka 
+Usmívat se 	Smile
+Smile	Usmívat se 
+Dítě 	Baby
+Baby	Dítě 
+Kluk	Boy
+Boy	Kluk
+Bratranec	Cousin
+Cousin	Bratranec
+Otec	Dad
+Dad	Otec
+Rodina	Family
+Family	Rodina
+Kamarád 	Friend
+Friend	Kamarád 
+Dívka 	Girl
+Girl	Dívka 
+Děda 	Grandfather
+Grandfather	Děda 
+Babča 	Grandma
+Grandma	Babča 
+Deda	Grandpa
+Grandpa	Deda
+Žít 	Live
+Live	Žít 
+Muž 	Man
+Man	Muž 
+Muži 	Men
+Men	Muži 
+Slečna 	Miss
+Miss	Slečna 
+Pan	Mr
+Mr	Pan
+Paní 	Mrs
+Mrs	Paní 
+Mamča 	Mummy
+Mummy	Mamča 
+Člověk 	Person
+Person	Člověk 
+Lidé 	People
+People	Lidé 
+Jejich	Their
+Their	Jejich
+Jim	Them
+Them	Jim
+Oni	They
+They	Oni
+Nám 	Us
+Us	Nám 
+My	We
+We	My
+Žena 	Woman
+Woman	Žena 
+Ženy 	Women
+Women	Ženy 
+Ty	You
+You	Ty
+Tvoje 	Your
+Your	Tvoje 
+Fazole	Bean
+Bean	Fazole
+Chléb 	Bread
+Bread	Chléb 
+Snídaně 	Breakfast
+Breakfast	Snídaně 
+Koláč 	Cake
+Cake	Koláč 
+Kokos	Coconut
+Coconut	Kokos
+Večeře 	Dinner
+Dinner	Večeře 
+Piti	Drink
+Drink	Piti
+Jíst 	Eat
+Eat	Jíst 
+Jídlo 	Food
+Food	Jídlo 
+Hroznové víno 	Grape
+Grape	Hroznové víno 
+Zmrzlina	Ice cream
+Ice cream	Zmrzlina
+Citrón 	Lemon
+Lemon	Citrón 
+Limonáda 	Lemonade
+Lemonade	Limonáda 
+Limetka	Lime
+Lime	Limetka
+Oběd 	Lunch
+Lunch	Oběd 
+Mango	Mango
+Mango	Mango
+Maso	Meat
+Meat	Maso
+Hrách 	Pea
+Pea	Hrách 
+Voda	Water
+Water	Voda
+Židle 	Chair
+Chair	Židle 
+Nosit na sobě	Wear
+Wear	Nosit na sobě
+Domov	Home
+Home	Domov
+Domácí mazlíček	Pet
+Pet	Domácí mazlíček
+Bratranec/Sestřenice	Cousin
+Cousin	Bratranec/Sestřenice
+Rodič	Parent
+Parent	Rodič
+Byt	Flat
+Flat	Byt
+Kruh	Circle
+Circle	Kruh
+Žít	Live
+Live	Žít
+S	With
+With	S
+Naše	Our
+Our	Naše
+Tento	This
+This	Tento
+Tyto	These
+These	Tyto
+Majetek	Possessions
+Possessions	Majetek
+Kamión	Lorry
+Lorry	Kamión
+Letadlo	Airplane
+Airplane	Letadlo
+Plážový míč	Beach ball
+Beach ball	Plážový míč
+Telefon	Phone
+Phone	Telefon
+Věc	Thing
+Thing	Věc
+Rybařit	Fish (verb)
+Fish (verb)	Rybařit
+Čí je to	Whose is this?
+Whose is this?	Čí je to
+Pardón 	Pardon
+Pardon	Pardón 
+Promiň	Sorry
+Sorry	Promiň
+Lidé	People
+People	Lidé
+Nejlepší přítel	Best friend
+Best friend	Nejlepší přítel
+Dítě (2)	Kid Baby
+Kid Baby	Dítě (2)
+Člověk	Person
+Person	Člověk
+Nebo	Or
+Or	Nebo
+Spolužák	Classmate
+Classmate	Spolužák
+Příšera	Monster
+Monster	Příšera
+Chytat ryby	Catch fish
+Catch fish	Chytat ryby
+Malovat obrázky	Draw pictures
+Draw pictures	Malovat obrázky
+Létat	Fly
+Fly	Létat
+Mít lekci plavání	Have a swimming lesson
+Have a swimming lesson	Mít lekci plavání
+Vyskočit 	Jump
+Jump	Vyskočit 
+Hláskovat opravdu dlouhá slova	Spell really long words
+Spell really long words	Hláskovat opravdu dlouhá slova
+Fotit	Take photos
+Take photos	Fotit
+Skládat písničky	Write songs
+Write songs	Skládat písničky
+Být dobrý v ...	Be good at ...
+Be good at ...	Být dobrý v ...
+a	and
+and	a
+ale	but
+but	ale
+Čistý	Clean
+Clean	Čistý
+Špinavý	Dirty
+Dirty	Špinavý
+Mladý	Young
+Young	Mladý
+Starý	Old
+Old	Starý
+Míčová hra	Ball game
+Ball game	Míčová hra
+Chodit	Walk
+Walk	Chodit
+V	In
+In	V
+Vedle	Next to
+Next to	Vedle
+Na	On
+On	Na
+Pod	Under
+Under	Pod
+Banán	Banana
+Banana	Banán
+Hroznové víno	Grape
+Grape	Hroznové víno
+Kiwi	Kiwi
+Kiwi	Kiwi
+Citrón	Lemon
+Lemon	Citrón
+Limonáda	Lemonade
+Lemonade	Limonáda
+Mléko	Milk
+Milk	Mléko
+Cibule	Onion
+Onion	Cibule
+Hrášek	Pea
+Pea	Hrášek
+Ananas	Pineapple
+Pineapple	Ananas
+Brambor	Potato
+Potato	Brambor
+Rajče	Tomato
+Tomato	Rajče
+Jíst	Eat
+Eat	Jíst
+Kulatý	Round
+Round	Kulatý
+Kafe	Café/coffee
+Café/coffee	Kafe
+Chipsy	Chips
+Chips	Chipsy
+Hranolky	Fries
+Fries	Hranolky
+Horká čokoláda	Hot chocolate
+Hot chocolate	Horká čokoláda
+Masové kuličky	Meatballs
+Meatballs	Masové kuličky
+Koláč	Pie
+Pie	Koláč
+Rýže	Rice
+Rice	Rýže
+Párek	Sausage
+Sausage	Párek
+Přidat	Add
+Add	Přidat
+Udělej pití	Make a drink
+Make a drink	Udělej pití
+Zkusit	Try
+Try	Zkusit
+Dnes	Today
+Today	Dnes
+Co bys rád?	What would you like?
+What would you like?	Co bys rád?
+Knihovna	Bookcase
+Bookcase	Knihovna
+Jídelna	Dining room
+Dining room	Jídelna
+Rohožka	Mat
+Mat	Rohožka
+Zrcadlo	Mirror
+Mirror	Zrcadlo
+Noha stolu	Table leg
+Table leg	Noha stolu
+Televize	Television
+Television	Televize
+Jako	Like
+Like	Jako
+Kde je tvůj domov?	Where is your home?
+Where is your home?	Kde je tvůj domov?
+Good afternoon	Dobré odpoledne 
+Dobré odpoledne 	Good afternoon
+Good evening	Dobrý večer 
+Dobrý večer 	Good evening
+Good night, guys.	Dobrou noc, dečka.
+Dobrou noc, dečka.	Good night, guys.
+Good morning	Dobré ráno 
+Dobré ráno 	Good morning
+Have a nice day	Hezký den
+Hezký den	Have a nice day
+Hey! What's up?	Čau, jak je?
+Čau, jak je?	Hey! What's up?
+Hey guys! What's new?	Čau dečka, co je nového?
+Čau dečka, co je nového?	Hey guys! What's new?
+See ya, bye-bye!	Čau (rozloučení)
+Čau (rozloučení)	See ya, bye-bye!
+See you later.	Uvidíme se.
+Uvidíme se.	See you later.
+See you next time.	Brzy ahoj, na shledanou.
+Brzy ahoj, na shledanou.	See you next time.
+Months	Měsíce 
+Měsíce 	Months
+Seasons	Roční období 
+Roční období 	Seasons
+Spring	Jaro
+Jaro	Spring
+Summer	Léto 
+Léto 	Summer
+Autumn / fall	Podzim
+Podzim	Autumn / fall
+Winter	Zima
+Zima	Winter
+Minus	Mínus 
+Mínus 	Minus
+Plus / and	Plus
+Plus	Plus / and
+Times / multiply by	Krát 
+Krát 	Times / multiply by
+Divided by	Děleno 
+Děleno 	Divided by
+Equals / is	Rovná se
+Rovná se	Equals / is
+Fat	Tlustý 
+Tlustý 	Fat
+Lamb	Beránek 
+Beránek 	Lamb
+Niece	Neteř 
+Neteř 	Niece
+Octopus	Chobotnice 🐙
+Chobotnice 🐙	Octopus
+Peace	Mír 
+Mír 	Peace
+Queen	Královna 
+Královna 	Queen
+Rose	Růže 🌹
+Růže 🌹	Rose
+Shark	Žralok 🦈
+Žralok 🦈	Shark
+Spider	Pavouk 
+Pavouk 	Spider
+Vest	Tílko 
+Tílko 	Vest
+West	Západ 
+Západ 	West
+Whale	Velryba 🐳
+Velryba 🐳	Whale
+Xylophone	Xylofon
+Xylofon	Xylophone
+Violet	Fialová 
+Fialová 	Violet
+To be quiet	Byt potichu
+Byt potichu	To be quiet
+Board	Tabule
+Tabule	Board
+Calculator	Kalkulačka 
+Kalkulačka 	Calculator
+To check	Zkontrolovat
+Zkontrolovat	To check
+To close a book	Zavřít knihu
+Zavřít knihu	To close a book
+To come home	Přijít domů 
+Přijít domů 	To come home
+Dictionary	Slovník 
+Slovník 	Dictionary
+To forget	Zapomenout
+Zapomenout	To forget
+To give	Dát 
+Dát 	To give
+Glue	Lepidlo 
+Lepidlo 	Glue
+Highlighter	Zvýrazňovač 
+Zvýrazňovač 	Highlighter
+To look at the map	Podívat se na mapu
+Podívat se na mapu	To look at the map
+Map	Mapa
+Mapa	Map
+Marker	Fix 
+Fix 	Marker
+Mobile phone / cellphone	Mobilní telefon 
+Mobilní telefon 	Mobile phone / cellphone
+To open a can	Otevřít konzervu
+Otevřít konzervu	To open a can
+To remember her birthday	Zapamatovat si její narozeniny 
+Zapamatovat si její narozeniny 	To remember her birthday
+Sharpener	Ořezávátko 
+Ořezávátko 	Sharpener
+To sit down	Sednout si
+Sednout si	To sit down
+To spell	Hláskovat 
+Hláskovat 	To spell
+To speak	Mluvit
+Mluvit	To speak
+To work in pairs	Pracovat ve dvojicích 
+Pracovat ve dvojicích 	To work in pairs
+To watch a movie	Sledovat film
+Sledovat film	To watch a movie
+Zapamatovat si	To remember
+To remember	Zapamatovat si
+Američan 	American
+American	Američan 
+Austrálie 	Australia
+Australia	Austrálie 
+Australan 	Australian
+Australian	Australan 
+Rakousko	Austria
+Austria	Rakousko
+Rakušan 	Austrian
+Austrian	Rakušan 
+Můj učitel je Američan 	My teacher is American
+My teacher is American	Můj učitel je Američan 
+On je Brit 	He Is British
+He Is British	On je Brit 
+Brit	British
+British	Brit
+Kanada	Canada
+Canada	Kanada
+Kanaďan 	Canadian
+Canadian	Kanaďan 
+Čína 	China
+China	Čína 
+Číňan 	Chinese
+Chinese	Číňan 
+Já jsem Čech 	I am Czech
+I am Czech	Já jsem Čech 
+Mluvím česky 	I speak Czech
+I speak Czech	Mluvím česky 
+Čech 	Czech
+Czech	Čech 
+Jsem z České republiky 	I am from the Czech Republic
+I am from the Czech Republic	Jsem z České republiky 
+Česká republika	The Czech Republic
+The Czech Republic	Česká republika
+Nejsme z Francie 	We aren't from France
+We aren't from France	Nejsme z Francie 
+Francie	France
+France	Francie
+Francouz	French
+French	Francouz
+Němec 	German
+German	Němec 
+On není z Německa 	He isn't from Germany
+He isn't from Germany	On není z Německa 
+Německo 	Germany
+Germany	Německo 
+Indie	India
+India	Indie
+Ind	Indian
+Indian	Ind
+Polsko	Poland
+Poland	Polsko
+Polák 	Polish
+Polish	Polák 
+Slovák 	Slovak
+Slovak	Slovák 
+Slovensko	Slovakia
+Slovakia	Slovensko
+Španělsko 	Spain
+Spain	Španělsko 
+Španěl 	Spanish
+Spanish	Španěl 
+Spojené království Velké Británie a Severního Irska 	The United Kingdom of Great Britain And Northern Ireland
+The United Kingdom of Great Britain And Northern Ireland	Spojené království Velké Británie a Severního Irska 
+USA, Spojené státy americké 	The USA
+The USA	USA, Spojené státy americké 
+Věk 	Age
+Age	Věk 
+Kdy máš narozeniny?	When is your birthday?
+When is your birthday?	Kdy máš narozeniny?
+Narozeniny 	Birthday
+Birthday	Narozeniny 
+Stát 	Country
+Country	Stát 
+Jaké je tvé křestní jméno?	What's your first name?
+What's your first name?	Jaké je tvé křestní jméno?
+Křestní jméno 	First name
+First name	Křestní jméno 
+Příjmení 	Last name
+Last name	Příjmení 
+Jakými jazyky hovoříš?	What languages do you speak?
+What languages do you speak?	Jakými jazyky hovoříš?
+Jazyky	Languages
+Languages	Jazyky
+Jaké jsi národnosti?	What is your nationality?
+What is your nationality?	Jaké jsi národnosti?
+Národnost 	Nationality
+Nationality	Národnost 
+Být na počítači 	To be on the computer
+To be on the computer	Být na počítači 
+Rád vařím 	I love cooking
+I love cooking	Rád vařím 
+Vařit 	To cook
+To cook	Vařit 
+Jezdit na kole	To cycle
+To cycle	Jezdit na kole
+Rád tančím 	I like dancing
+I like dancing	Rád tančím 
+Tančit 	To dance
+To dance	Tančit 
+Sportovat	To do sports
+To do sports	Sportovat
+Dělat gymnastiku	To do gymnastics
+To do gymnastics	Dělat gymnastiku
+Dělat atletiku	To do athletics
+To do athletics	Dělat atletiku
+Maluji nerad	I don't like drawing
+I don't like drawing	Maluji nerad
+Jít nakupovat 	To go shopping
+To go shopping	Jít nakupovat 
+Nesnáším kolečkové brusle	I hate inline skating
+I hate inline skating	Nesnáším kolečkové brusle
+Jezdit na kolečkových bruslích 	To inline skate
+To inline skate	Jezdit na kolečkových bruslích 
+Poslouchat hudbu	To listen to music
+To listen to music	Poslouchat hudbu
+Dělat videa	To make videos
+To make videos	Dělat videa
+Basketbal	Basketball
+Basketball	Basketbal
+Florbal	Florball
+Florball	Florbal
+Hokej	Ice hockey
+Ice hockey	Hokej
+Stolní tenis	Table tennis
+Table tennis	Stolní tenis
+Volejbal	Volleyball
+Volleyball	Volejbal
+Flétna 	The fluete
+The fluete	Flétna 
+Hrát počítačové hry	To play PC games
+To play PC games	Hrát počítačové hry
+Číst knihy 	To read books
+To read books	Číst knihy 
+Jezdit na koni	To ride a horse
+To ride a horse	Jezdit na koni
+Zpívat 	To sing
+To sing	Zpívat 
+Dívat se na televizi	To watch TV
+To watch TV	Dívat se na televizi
+Psát 	To write
+To write	Psát 

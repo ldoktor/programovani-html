@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI generované stránky</title>
+  <!-- Odkaz na jednoduchý styl -->
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+  <!-- Zde se načte společné menu -->
+  <script src="menu.js"></script>
+
+  <header>
+    <h1>Ukázky stránek generovaných pomocí AI</h1>
+  </header>
+
+  <main>
+    <section id="anglictina">
+      <h2>Angličtina</h2>
+      <p>
+        Jednoduchá hra na trénink angličtiny (či jiné látky vyžadující krátkou
+        otázku/odpověď) vytvořená pomocí chatgpt 5.1. Pro ukázku stáhněte soubor
+        s anglickými slovíčky: <a href="ai/anglictina-chatgpt.txt">zde</a>,
+        budete jej potřebovat po kliknutí na odkaz hry
+        <a href="ai/anglictina-chatgpt.html">zde</a>.
+      </p>
+    </section>
+
+    <section id="mapa">
+        <h2>Hra s mapou</h2>
+        <p>
+            Nedokončená a zabugovaná hra, která dala zabrat všem zkoušeným
+            LLM, nejvíce mě oslovila verze od google geminy 3. Opět potřebujete
+            soubor s úkoly <a href="ai/map-geminy.json">zde</a>, následně jej
+            můžete využít ve hře <a href="ai/map-geminy.html">zde</a>, případně
+            si můžete naklikat vlastní otázky. Když jste připravení, klikněte
+            "switch to students mode". Po zadání odpovědi vyskočí tabulka s
+            názvem nového bodu, dejte "cancel" a "confirm answer". Hra následně
+            vyhodnotí vaši odpověď. Upozorňuji, že skóre je krajně nedodělané.
+        </p>
+    </section>
+
+    <section id="kondiciogram">
+        <h2>Jáchyme hoď ho do stroje</h2>
+        <p>
+            Ukázka náhodných vs. pseudonáhodných generátorů je k dispozici
+            <a href="ai/kondiciogram-qwen3.html">zde</a>. Tentokrát je vygenerován
+            pomocí lokálního opensourcového AI qwen3:30b-a3b-2507-nothink.
+            Všimněte si že některé metody (náhodná) generuje pokaždé něco jiného
+            a jiné metody (vědecká, pozitivní, ...) generují stabilní výsledky
+            založené na jménu a datu narození.
+        </p>
+    </section>
+
+    <section id="odkazy">
+        <p><strong style="color: red;">
+            LLM není člověk, je to v podstatě kompresní algoritmus,
+            který hledá nejpravděpodobnějíš pokračování textu na základě předchozího
+            zadání. Například po <code>"Kde domov můj, kde "</code> je velmi pravděpodobné,
+            že bude pokračovat text naší hymny. Můžete získat i jinou odpověď
+            v závislosti na nastavení LLM. Pěkné
+            <a href="https://www.youtube.com/watch?v=Wg9gbEa28D8">video je k dispozici na NEZkreslené vědě</a>.
+        </strong></p>
+        <ul>
+            <li><a href="https://www.google.com">Geminy (klikněte na Režim AI)</a></li>
+            <li><a href="https://www.chatgpt.com">ChatGPT (pokud se zeptá, dejte pokračovat bez přihlášení)</a></li>
+            <li><a href="https://huggingface.co/unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF">Qwen3-30B-A3B (vyžaduje nástroj, např. ollama)</a></li>
+        </ul>
+    </section>
+  </main>
+</body>

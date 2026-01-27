@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Balónková střelba – slovíčka</title>
+
+<style>
+html,body{
+    margin:0;padding:0;height:100%;overflow:hidden;
+    font-family:Arial,sans-serif;
+    cursor:crosshair;
+}
+#container{display:flex;height:100%}
+#playfield{
+    flex:1;position:relative;overflow:hidden;
+    background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+               center/cover;
+}
+#ui{
+    width:320px;background:#111;color:#fff;
+    padding:14px;box-sizing:border-box;
+    border-left:4px solid #333;
+}
+#question{
+    font-size:28px;color:#ffeb3b;
+    text-shadow:2px 2px 0 #000;
+}
+#info,#timer{margin:6px 0}
+#ammo{font-size:30px;margin:8px 0}
+
+.balloon{
+    position:absolute;width:120px;height:150px;
+    border-radius:60%;
+    background:radial-gradient(circle at 30% 30%,
+        rgba(255,255,255,.9),var(--color));
+    opacity:.8;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;font-size:18px;color:#fff;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+    user-select:none;
+}
+
+.pop{animation:pop .4s forwards}
+@keyframes pop{to{transform:scale(1.7);opacity:0}}
+
+.particle{
+    position:absolute;font-size:26px;pointer-events:none;
+    animation:fly .8s forwards;
+}
+@keyframes fly{
+    to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}
+}
+
+#stats{
+    position:fixed;inset:0;display:none;
+    background:rgba(0,0,0,.9);color:#fff;
+    align-items:center;justify-content:center;
+    text-align:center;font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+    <div id="playfield"></div>
+
+    <div id="ui">
+        Soubor: <input type="file" id="fileInput"><br>
+        Otázky: <input id="qCount" type="number" value="10" min="1" style="width:60px">
+        Čas (s): <input id="timeLimit" type="number" value="10" min="3" style="width:60px">
+        <div id="question"></div>
+        <div id="info"></div>
+        <div id="timer"></div>
+        <div id="ammo"></div>
+        <button id="reloadBtn">NABÍT</button>
+    </div>
+</div>
+
+<div id="stats"></div>
+
+<script>
+let cards=[],round=0,score=0;
+let ammo=6,maxAmmo=6;
+let maxRounds=10,correctAnswer=null;
+let balloons=[],timerInt=null,timeLeft=10;
+let totalShots=0,correctHits=0,reloading=false;
+
+const pf=document.getElementById("playfield");
+const ctx=new (window.AudioContext||window.webkitAudioContext)();
+
+const beep=f=>{
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.value=f;g.gain.value=.25;
+    o.connect(g).connect(ctx.destination);
+    o.start();o.stop(ctx.currentTime+.1);
+};
+
+function updateUI(){
+    document.getElementById("info").textContent=
+        `Kolo ${round}/${maxRounds} | Skóre ${score}`;
+    document.getElementById("ammo").textContent="🔫".repeat(ammo);
+}
+
+function startTimer(){
+    clearInterval(timerInt);
+    timeLeft=parseInt(document.getElementById("timeLimit").value)||10;
+    document.getElementById("timer").textContent=`⏱ ${timeLeft}s`;
+    timerInt=setInterval(()=>{
+        timeLeft--;
+        document.getElementById("timer").textContent=`⏱ ${timeLeft}s`;
+        if(timeLeft<=0) timeoutFail();
+    },1000);
+}
+
+function timeoutFail(){
+    clearInterval(timerInt);
+    balloons.forEach(b=>{
+        if(!b.correct) explode(b);
+    });
+    score-=5;
+    setTimeout(nextRound,600);
+}
+
+function particles(x,y){
+    ["💥","🎈","✨","💢"].forEach(s=>{
+        const d=document.createElement("div");
+        d.className="particle";
+        d.textContent=s;
+        d.style.left=x+"px";
+        d.style.top=y+"px";
+        d.style.setProperty("--x",(Math.random()*200-100)+"px");
+        d.style.setProperty("--y",(Math.random()*200-100)+"px");
+        pf.appendChild(d);
+        setTimeout(()=>d.remove(),800);
+    });
+}
+
+function explode(b){
+    if(b.dead) return;
+    b.dead=true;
+    particles(b.x+60,b.y+75);
+    b.el.classList.add("pop");
+    setTimeout(()=>b.el.remove(),400);
+}
+
+function createBalloon(text,isCorrect){
+    const el=document.createElement("div");
+    el.className="balloon";
+    el.textContent=text;
+    el.style.setProperty("--color",`hsl(${Math.random()*360},70%,55%)`);
+
+    const bw=120,bh=150;
+    let x=Math.random()*(pf.clientWidth-bw);
+    let y=Math.random()*(pf.clientHeight-bh);
+    let speed=1+Math.max(score,0)*.1;
+    let dx=(Math.random()*2-1)*speed;
+    let dy=(Math.random()*2-1)*speed;
+
+    const b={el,x,y,dx,dy,correct:isCorrect,dead:false};
+    balloons.push(b);
+    pf.appendChild(el);
+
+    function move(){
+        if(b.dead) return;
+        x+=dx;y+=dy;
+        if(x<=0||x>=pf.clientWidth-bw) dx*=-1;
+        if(y<=0||y>=pf.clientHeight-bh) dy*=-1;
+        b.x=x;b.y=y;
+        el.style.left=x+"px";
+        el.style.top=y+"px";
+        requestAnimationFrame(move);
+    }
+    move();
+
+    el.onclick=e=>{
+        e.stopPropagation();
+        if(reloading) return;
+
+        if(ammo<=0){
+            beep(400);
+            score-=2;
+            updateUI();
+            return;
+        }
+
+        ammo--;totalShots++;beep(140);
+
+        if(isCorrect){
+            correctHits++;score++;
+            clearInterval(timerInt);
+
+            balloons.forEach(o=>{
+                if(!o.correct) explode(o);
+            });
+
+            setTimeout(()=>{
+                explode(b);
+                nextRound();
+            },600);
+
+        }else{
+            score--;
+            explode(b);
+        }
+        updateUI();
+    };
+}
+
+pf.onclick=()=>{
+    if(ammo<=0){
+        beep(400);
+        score-=2;
+        updateUI();
+        return;
+    }
+    ammo--;totalShots++;beep(140);
+    score--;
+    updateUI();
+};
+
+document.getElementById("reloadBtn").onclick=()=>{
+    if(reloading) return;
+    reloading=true;
+
+    const penalty=ammo>0 ? ammo : -5;
+    score-=penalty;
+
+    setTimeout(()=>{
+        ammo=maxAmmo;
+        reloading=false;
+        updateUI();
+    },1200);
+};
+
+function nextRound(){
+    clearInterval(timerInt);
+    pf.innerHTML="";
+    balloons=[];
+    if(round>=maxRounds){showStats();return;}
+
+    round++;
+    const c=cards[Math.floor(Math.random()*cards.length)];
+    correctAnswer=c[1];
+    document.getElementById("question").textContent=c[0];
+
+    const wrong=cards.filter(x=>x[1]!=correctAnswer)
+        .sort(()=>Math.random()-.5).slice(0,5);
+
+    createBalloon(correctAnswer,true);
+    wrong.forEach(w=>createBalloon(w[1],false));
+
+    startTimer();
+    updateUI();
+}
+
+function showStats(){
+    const s=document.getElementById("stats");
+    const ok=totalShots?Math.round(correctHits/totalShots*100):0;
+    s.style.display="flex";
+    s.innerHTML=`
+    <div>
+        <h1>🦄🌈✨ KONEC ✨🌈🦄</h1>
+        <p>Skóre: ${score}</p>
+        <p>Výstřely: ${totalShots}</p>
+        <p>Správně: ${correctHits}</p>
+        <p>Úspěšnost: ${ok}%</p>
+        <button onclick="restart()">Hrát znovu</button>
+    </div>`;
+}
+
+window.restart=()=>{
+    score=0;round=0;ammo=maxAmmo;
+    totalShots=0;correctHits=0;
+    document.getElementById("stats").style.display="none";
+    nextRound();
+};
+
+document.getElementById("fileInput").onchange=e=>{
+    const r=new FileReader();
+    r.onload=()=>{
+        cards=r.result.split("\n")
+            .filter(l=>l&&!l.startsWith("#"))
+            .map(l=>l.split("\t"));
+        maxRounds=parseInt(document.getElementById("qCount").value)||10;
+        restart();
+    };
+    r.readAsText(e.target.files[0],"UTF-8");
+};
+</script>
+</body>
+</html>
+
