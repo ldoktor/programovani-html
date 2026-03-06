@@ -539,7 +539,7 @@
             const tableBody = document.querySelector('#score-table tbody');
             const detailHtml = target.details ? `<span class="detail-text">${target.details.replace(/\n/g, '<br>')}</span>` : '';
             const row = `<tr><td><b>${target.name}</b><br>${detailHtml}</td><td>${scoreText}</td></tr>`;
-            tableBody.innerHTML += row;
+            tableBody.insertAdjacentHTML('afterbegin', row);
 
             currentTurnIndex++;
             nextTurn();
