@@ -157,7 +157,8 @@
         let currentTurnIndex = 0;
         let currentDrawControl = null;
         let currentStudentLayer = null; 
-        
+        let scoreResults = [];
+
         // Modal State
         let tempLayer = null;
         let tempLayerType = null;
@@ -457,6 +458,7 @@
                 const from = turf.point(studentGeo.geometry.coordinates);
                 const to = turf.point(correctGeo.geometry.coordinates);
                 const distance = turf.distance(from, to, {units: 'kilometers'});
+                numericScore = distance;
                 scoreText = `${distance.toFixed(1)} km off`;
             } else {
                 try {
@@ -473,6 +475,7 @@
                     const excess = turf.difference(studentPoly, correctPoly);
                     const excessArea = excess ? turf.area(excess) : 0;
                     const totalErrorSqKm = (missedArea + excessArea) / 1000000;
+                    numericScore = totalErrorSqKm;
                     scoreText = `${totalErrorSqKm.toFixed(1)} km² error`;
                 } catch (err) {
                     console.error(err);
@@ -525,6 +528,13 @@
             map.removeLayer(currentStudentLayer);
             currentStudentLayer = null;
 
+            // Push score
+            scoreResults.push({
+				name: target.name,
+				type: target.type,
+				score: numericScore
+			});
+
             // Update Table with Details
             const tableBody = document.querySelector('#score-table tbody');
             const detailHtml = target.details ? `<span class="detail-text">${target.details.replace(/\n/g, '<br>')}</span>` : '';
@@ -539,11 +549,45 @@
             clearInterval(timerInterval);
             document.getElementById('instruction-text').innerText = "Game Over! Review your map.";
             document.getElementById('current-target-name').innerText = "Finished";
-            document.getElementById('final-score').innerHTML = `
-                <div class="score-final">
-                    Total Time: ${document.getElementById('timer').innerText.replace('Time: ', '')}
-                </div>
-            `;
+			const scores = scoreResults
+				.map(r => r.score)
+				.filter(s => !isNaN(s));
+
+			function median(arr) {
+				const sorted = [...arr].sort((a,b)=>a-b);
+				const mid = Math.floor(sorted.length/2);
+				return sorted.length % 2 !== 0
+				    ? sorted[mid]
+				    : (sorted[mid-1] + sorted[mid]) / 2;
+			}
+
+			const total = scores.reduce((a,b)=>a+b,0);
+			const min = Math.min(...scores);
+			const max = Math.max(...scores);
+			const med = median(scores);
+
+			function avg(type){
+				const arr = scoreResults.filter(r=>r.type===type).map(r=>r.score);
+				if(arr.length===0) return "-";
+				return (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2);
+			}
+
+			document.getElementById('final-score').innerHTML = `
+				<div class="score-final">
+				    Total Time: ${document.getElementById('timer').innerText.replace('Time: ', '')}<br><br>
+
+				    <b>Statistics</b><br>
+				    Total error: ${total.toFixed(2)}<br>
+				    Median: ${med.toFixed(2)}<br>
+				    Min: ${min.toFixed(2)}<br>
+				    Max: ${max.toFixed(2)}<br><br>
+
+				    <b>Per Category (average)</b><br>
+				    Points: ${avg('marker')}<br>
+				    Lines: ${avg('polyline')}<br>
+				    Areas: ${avg('polygon')}
+				</div>
+			`;
             if(resultsLayer.getLayers().length > 0) map.fitBounds(resultsLayer.getBounds());
         }
 
