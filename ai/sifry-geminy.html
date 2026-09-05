@@ -94,7 +94,6 @@
             border-radius: 4px;
         }
         
-        /* Tabulka abecedy */
         .alphabet-table {
             width: 100%;
             border-collapse: collapse;
@@ -108,7 +107,6 @@
         }
         .alphabet-table th { background: #222; color: var(--text-color); }
         
-        /* Debug Panel */
         #debug-panel {
             background: #f39c12;
             color: #000;
@@ -123,9 +121,49 @@
             font-size: 0.9em;
             border: 1px solid #000;
             margin-top: 5px;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
         }
 
-        /* Mřížky */
+        .hint-content {
+            background: var(--text-light);
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 5px solid var(--text-color);
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .hint-content pre {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .hint-content code {
+            background: #000;
+            color: #00ff00;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .hint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #000;
+            color: #00ff00;
+            font-size: 0.9em;
+        }
+        .hint-table th, .hint-table td {
+            border: 1px solid #0f3460;
+            padding: 4px 8px;
+            text-align: left;
+        }
+        .hint-table th { background: #0f3460; color: white; position: sticky; top: 0; }
+
         .rle-grid { border-collapse: collapse; margin-top: 15px; background: #fff;}
         .rle-grid td { width: 25px; height: 25px; border: 1px solid #ccc; }
         .rle-grid td.filled { background: #000; }
@@ -170,7 +208,7 @@
         
         <div id="tool-container"></div>
         
-        <div class="form-group" style="margin-top: 20px;">
+        <div class="form-group" id="output-group" style="margin-top: 20px;">
             <label>VÝSTUP / DEKÓDOVANÝ TEXT:</label>
             <div id="output" class="output-box">Zde se zobrazí výsledek...</div>
         </div>
@@ -190,25 +228,20 @@
 
 <script>
     const SECRETS = {
-        'mor': 'alpha123',
-        'ces': 'beta456',
-        'rev': 'gamma789',
-        'non': 'delta000',
-        'mat': 'epsilon11',
-        'rle': 'CwkAkc4e',
-        'asc': 'omega99',
-        'vie': 'sigma22',
-        'abc': 'zeta333'
+        'mor': 'alpha123', 'ces': 'beta456', 'rev': 'gamma789', 'non': 'delta000',
+        'mat': 'epsilon11', 'rle': 'CwkAkc4e', 'asc': 'omega99', 'vie': 'sigma22', 'abc': 'zeta333',
+        'morl': 'hint', 'cesl': 'hint', 'revl': 'hint', 'nonl': 'hint',
+        'matl': 'hint', 'rlel': 'hint', 'ascl': 'hint', 'viel': 'hint', 'abcl': 'hint'
     };
 
     const MORSE_DICT = {
-        '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F',
-        '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L',
-        '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R',
-        '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
-        '-.--': 'Y', '--..': 'Z', '.----': '1', '..---': '2', '...--': '3',
-        '....-': '4', '.....': '5', '-....': '6', '--...': '7', '---..': '8',
-        '----.': '9', '-----': '0', '---...': ':'
+        'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+        'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+        'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+        'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+        'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--',
+        '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+        '9': '----.', '0': '-----'
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -217,20 +250,158 @@
     const prefillData = urlParams.get('text') || '';
     const debugMode = urlParams.get('debug') === '1';
 
-    // Ověření
     if (cipherType && SECRETS[cipherType] && SECRETS[cipherType] === secret) {
         document.getElementById('auth-error').classList.add('hidden');
         document.getElementById('workspace').classList.remove('hidden');
         if (debugMode) document.getElementById('debug-panel').classList.remove('hidden');
-        initTool(cipherType);
+        
+        if (cipherType.endsWith('l')) {
+            initHint(cipherType);
+        } else {
+            initTool(cipherType);
+        }
     }
 
+    // --- VÝUKOVÉ NÁPOVĚDY (režim L) ---
+    function initHint(type) {
+        const container = document.getElementById('tool-container');
+        const title = document.getElementById('cipher-title');
+        document.getElementById('output-group').style.display = 'none';
+        let html = '';
+
+        switch(type) {
+            case 'cesl':
+                title.innerText = "Nápověda: Caesarova Šifra";
+                html = `
+                    <div class="hint-content">
+                        <p>Caesarova šifra spočívá v posunu každého písmene v abecedě o pevně stanovený počet míst.</p>
+                        <p>Pokud je například posun <strong>+1</strong>, můžeme si řešení představit jako posunutou abecedu napsanou pod tou původní:</p>
+                        <pre>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+B C D E F G H I J K L M N O P Q R S T U V W X Y Z A</pre>
+                        <p>Když chceme zašifrovat slovo <code>AHOJ</code>, najdeme si každé písmeno v horním řádku a nahradíme ho písmenem v dolním řádku. Vznikne tak slovo <code>BJPK</code>.</p>
+                    </div>`;
+                break;
+            case 'morl':
+                title.innerText = "Nápověda: Morseova Abeceda";
+                let morseGrid = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; background: #000; padding: 15px; border-radius: 5px;">';
+                for (let char in MORSE_DICT) {
+                    morseGrid += `<div><strong style="color:white">${char}</strong> <code style="color:#00ff00">${MORSE_DICT[char]}</code></div>`;
+                }
+                morseGrid += '</div>';
+                
+                html = `
+                    <div class="hint-content">
+                        <p>Zpráva je zapsána pomocí teček a čárek. Mezery mezi znaky se oddělují běžnou mezerou, konec slova se často značí lomítkem (<code>/</code>).</p>
+                        <p>Například slovo <code>AHOJ</code> se zapíše jako: <code>.- .... --- .---</code></p>
+                        ${morseGrid}
+                    </div>`;
+                break;
+            case 'revl':
+                title.innerText = "Nápověda: Reverzní text";
+                html = `<div class="hint-content"><p>Pro dešifrování stačí zapsat nebo přečíst písmena textu <strong>odzadu</strong>.</p><p>Příklad: <code>JOHA</code> -> <code>AHOJ</code>.</p></div>`;
+                break;
+            case 'nonl':
+                title.innerText = "Nápověda: Gronsfeldova šifra (Aditivní posun)";
+                html = `
+                    <div class="hint-content">
+                        <p>Místo jednoho posunu pro celou zprávu se <strong>každé písmeno posouvá o jinou hodnotu</strong> podle číselného klíče.</p>
+                        <p><strong>Příklad dešifrování:</strong><br>
+                        Máme text <code>BJPK</code> a klíčem je číslo <code>1210</code>.<br>
+                        Aplikujeme čísla jako posuny zpět (mínus):<br>
+                        1. písmeno: B (-1 pozice) -> <code>A</code><br>
+                        2. písmeno: J (-2 pozice) -> <code>H</code><br>
+                        3. písmeno: P (-1 pozice) -> <code>O</code><br>
+                        4. písmeno: K (-0 pozic) -> <code>J</code><br>
+                        Výsledek: <code>AHOJ</code>.</p>
+                    </div>`;
+                break;
+            case 'viel':
+                title.innerText = "Nápověda: Vigenèrova šifra";
+                html = `
+                    <div class="hint-content">
+                        <p>Funguje stejně jako číselný posun, ale <strong>klíčem je slovo</strong>. Písmena klíče se převedou na čísla (A=0, B=1, C=2...). Heslo se neustále opakuje dokola.</p>
+                        <p><strong>Příklad dešifrování:</strong><br>
+                        Máme text <code>BJOK</code> a klíčem je slovo <code>BCA</code> (což znamená posuny +1, +2, +0).<br>
+                        Aplikujeme je na zprávu zpět:<br>
+                        1. písmeno: B (-1) -> <code>A</code><br>
+                        2. písmeno: J (-2) -> <code>H</code><br>
+                        3. písmeno: O (-0) -> <code>O</code><br>
+                        4. písmeno: K (klíč se točí, opět B = -1) -> <code>J</code><br>
+                        Výsledek: <code>AHOJ</code>.</p>
+                    </div>`;
+                break;
+            case 'rlel':
+                title.innerText = "Nápověda: Run-Length Encoding (RLE)";
+                html = `
+                    <div class="hint-content">
+                        <p>RLE se používá k jednoduché kompresi obrázků. Každý řádek čísel odpovídá jednomu řádku v mřížce. Čísla říkají, kolik políček dané barvy máme vybarvit, než barvu střídáme.</p>
+                        <p><strong>DŮLEŽITÉ PRAVIDLO:</strong> V našem případě se začíná vždy <strong>ČERNÝM (plným)</strong> políčkem.</p>
+                        <p>Například zápis <code>1, 3, 1</code> znamená:<br>
+                        - Vybarvi 1 políčko černě<br>
+                        - Nech 3 políčka prázdná (bílá)<br>
+                        - Vybarvi 1 políčko černě.</p>
+                    </div>`;
+                break;
+            case 'ascl':
+                title.innerText = "Nápověda: ASCII Tabulka";
+                
+                let ascRows = '';
+                const start = 32;
+                const end = 126;
+                const total = end - start + 1; // 95
+                const rowsCount = Math.ceil(total / 2); // 48
+                
+                for(let r = 0; r < rowsCount; r++) {
+                    let i1 = start + r;
+                    let i2 = start + rowsCount + r;
+                    
+                    let hex1 = i1.toString(16).toUpperCase().padStart(2, '0');
+                    let char1 = i1 === 32 ? '(mezera)' : String.fromCharCode(i1);
+                    let col1 = `<td>${i1}</td><td>0x${hex1}</td><td><strong>${char1}</strong></td>`;
+                    
+                    let col2 = '';
+                    if (i2 <= end) {
+                        let hex2 = i2.toString(16).toUpperCase().padStart(2, '0');
+                        let char2 = String.fromCharCode(i2);
+                        col2 = `<td>${i2}</td><td>0x${hex2}</td><td><strong>${char2}</strong></td>`;
+                    } else {
+                        col2 = `<td></td><td></td><td></td>`;
+                    }
+                    
+                    ascRows += `<tr>${col1}${col2}</tr>`;
+                }
+
+                html = `
+                    <div class="hint-content">
+                        <p>Počítače chápou pouze čísla. <strong>ASCII tabulka</strong> přiřazuje každému znaku na klávesnici (včetně speciálních symbolů) číselné ID (desítkově i šestnáctkově - HEX).</p>
+                        <p>Příklad: Čísla <code>65 72 79 74</code> znamenají <code>AHOJ</code>.</p>
+                        <div style="max-height: 400px; overflow-y: auto; border: 1px solid #0f3460; border-radius: 4px;">
+                            <table class="hint-table">
+                                <tr><th>DEC</th><th>HEX</th><th>ZNAK</th><th>DEC</th><th>HEX</th><th>ZNAK</th></tr>
+                                ${ascRows}
+                            </table>
+                        </div>
+                    </div>`;
+                break;
+            case 'abcl':
+                title.innerText = "Nápověda: Číselná abeceda (0-25)";
+                html = `<div class="hint-content"><p>Písmena se převádí na pořadová čísla od nuly (A=0, Z=25). Čísla <code>0 7 14 9</code> znamenají <code>AHOJ</code>.</p></div>`;
+                break;
+            case 'matl':
+                title.innerText = "Nápověda: Matematická mřížka";
+                html = `<div class="hint-content"><p>Hledejte souvislou cestu (nahoru, dolů, doleva, doprava) od S do C tak, aby součet čísel na trase dal přesně požadovaný výsledek.</p></div>`;
+                break;
+        }
+
+        container.innerHTML = html;
+        if(debugMode) updateDebugUrl();
+    }
+
+    // --- INTERAKTIVNÍ DEKODÉRY ---
     function initTool(type) {
         const container = document.getElementById('tool-container');
         const title = document.getElementById('cipher-title');
         let html = '';
-        
-        // Pomocná událost pro aktualizaci DEBUG URL
         const ev = debugMode ? 'oninput="updateDebugUrl()"' : '';
 
         switch(type) {
@@ -238,145 +409,88 @@
                 title.innerText = "Morseova Abeceda <mor>";
                 html = `
                     <div class="form-group">
-                        <label>Vstupní text (tečky/čárky oddělené mezerou, lomítko '/' pro oddělení slov):</label>
+                        <label>Vstupní text (oddělujte mezerou, lomítko '/' pro oddělení slov):</label>
                         <textarea id="input-text" ${ev} placeholder=".- .... --- .---">${prefillData}</textarea>
                     </div>
                     <div class="btn-group">
-                        <button onclick="processMorse(true)">Dešifrovat z Morseovky</button>
-                        <button onclick="processMorse(false)">Zašifrovat do Morseovky</button>
+                        <button onclick="processMorse(true)">Dešifrovat</button>
+                        <button onclick="processMorse(false)">Zašifrovat</button>
                     </div>`;
                 break;
-                
             case 'ces':
                 title.innerText = "Caesarova Šifra <ces>";
                 html = `
-                    <div class="form-group">
-                        <label>Zpráva:</label>
-                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Posun (číslo, např. 3 nebo -3):</label>
-                        <input type="number" id="input-key" ${ev} value="${urlParams.get('shift') || 3}">
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processCaesar(1)">Zašifrovat (+)</button>
-                        <button onclick="processCaesar(-1)">Dešifrovat (-)</button>
-                    </div>`;
+                    <div class="form-group"><label>Zpráva:</label><textarea id="input-text" ${ev}>${prefillData}</textarea></div>
+                    <div class="form-group"><label>Posun (číslo):</label><input type="number" id="input-key" ${ev} value="${urlParams.get('shift') || 3}"></div>
+                    <div class="btn-group"><button onclick="processCaesar(1)">Zašifrovat (+)</button><button onclick="processCaesar(-1)">Dešifrovat (-)</button></div>`;
                 break;
-
             case 'rev':
                 title.innerText = "Reverzní Text <rev>";
-                html = `
-                    <div class="form-group">
-                        <label>Text k převrácení:</label>
-                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processReverse()">Otočit text</button>
-                    </div>`;
+                html = `<div class="form-group"><label>Text:</label><textarea id="input-text" ${ev}>${prefillData}</textarea></div><div class="btn-group"><button onclick="processReverse()">Otočit text</button></div>`;
                 break;
-
             case 'non':
             case 'vie':
-                title.innerText = type === 'non' ? "Gronsfeld / Aditivní posun <non>" : "Vigenère Šifra <vie>";
+                title.innerText = type === 'non' ? "Gronsfeldova šifra <non>" : "Vigenère Šifra <vie>";
                 html = `
-                    <div class="form-group">
-                        <label>Zpráva:</label>
-                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Klíč (text pro vie / čísla pro non):</label>
-                        <input type="text" id="input-key" ${ev} value="${urlParams.get('key') || ''}">
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processVigenere(1)">Zašifrovat (+)</button>
-                        <button onclick="processVigenere(-1)">Dešifrovat (-)</button>
-                    </div>`;
+                    <div class="form-group"><label>Zpráva:</label><textarea id="input-text" ${ev}>${prefillData}</textarea></div>
+                    <div class="form-group"><label>Klíč (čísla pro non / slovo pro vie):</label><input type="text" id="input-key" ${ev} value="${urlParams.get('key') || ''}"></div>
+                    <div class="btn-group"><button onclick="processVigenere(1)">Zašifrovat (+)</button><button onclick="processVigenere(-1)">Dešifrovat (-)</button></div>`;
                 break;
-
             case 'rle':
-                title.innerText = "Run-Length Encoding Grafika <rle>";
+                title.innerText = "Run-Length Encoding <rle>";
                 html = `
-                    <div class="form-group">
-                        <label>Zadejte RLE kód (řádky oddělené enterem, čísla čárkou):</label>
-                        <textarea id="input-text" ${ev} placeholder="1,4\\n2,3\\n1,1,1,2">${prefillData}</textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processRLE()">Vykreslit</button>
-                    </div>`;
+                    <div class="form-group"><label>RLE kód (čísla oddělená čárkou, řádky enterem):</label><textarea id="input-text" ${ev} placeholder="1,4\\n2,3\\n1,1,1,2">${prefillData}</textarea></div>
+                    <div class="btn-group"><button onclick="processRLE()">Vykreslit</button></div>`;
                 break;
-
             case 'asc':
                 title.innerText = "ASCII Kódování <asc>";
                 html = `
-                    <div class="form-group">
-                        <label>Vstup (čísla oddělená mezerou NEBO text):</label>
-                        <textarea id="input-text" ${ev} placeholder="85 107 111 108">${prefillData}</textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processASCII(true)">Čísla -> Text</button>
-                        <button onclick="processASCII(false)">Text -> Čísla</button>
-                    </div>`;
+                    <div class="form-group"><label>Vstup (čísla oddělená mezerou NEBO text):</label><textarea id="input-text" ${ev}>${prefillData}</textarea></div>
+                    <div class="btn-group"><button onclick="processASCII(true)">Čísla -> Text</button><button onclick="processASCII(false)">Text -> Čísla</button></div>`;
                 break;
-                
             case 'abc':
                 title.innerText = "Číselná Abeceda (A=0, Z=25) <abc>";
                 html = `
-                    <div class="form-group">
-                        <label>Vstup (čísla 0-25 oddělená mezerou NEBO obyčejný text):</label>
-                        <textarea id="input-text" ${ev} placeholder="0 1 2 3">${prefillData}</textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button onclick="processABC(true)">Čísla -> Text</button>
-                        <button onclick="processABC(false)">Text -> Čísla</button>
-                    </div>`;
+                    <div class="form-group"><label>Vstup (čísla 0-25 NEBO text):</label><textarea id="input-text" ${ev}>${prefillData}</textarea></div>
+                    <div class="btn-group"><button onclick="processABC(true)">Čísla -> Text</button><button onclick="processABC(false)">Text -> Čísla</button></div>`;
                 break;
-
             case 'mat':
                 title.innerText = "Matematická Mřížka <mat>";
                 const gridData = ['S',3,5,7,11, 13,17,19,23,29, 31,37,41,43,47, 53,59,61,67,71, 73,79,83,89,'C'];
-                html = `<div style="text-align: center;">Klikáním na čísla vyznač trasu a sleduj součet. Cílová hodnota = 269.</div>
-                        <div class="math-grid">`;
+                html = `<div style="text-align: center;">Klikáním vyznač trasu. Cílová hodnota = 269.</div><div class="math-grid">`;
                 gridData.forEach(num => {
                     const isEdge = num === 'S' || num === 'C';
                     html += `<div class="math-cell ${isEdge ? 'static' : ''}" data-val="${isEdge ? 0 : num}" onclick="${isEdge ? '' : 'toggleMathCell(this)'}">${num}</div>`;
                 });
                 html += `</div><div class="math-sum">Aktuální součet: <span id="math-total">0</span></div>`;
-                document.getElementById('output').parentElement.style.display = 'none'; // Skryjeme normální výstup
+                document.getElementById('output-group').style.display = 'none';
                 break;
         }
 
         container.innerHTML = html;
-        if(debugMode) updateDebugUrl(); // Vygenerovat URL při startu
-        if(prefillData && type !== 'mat') {
-            document.querySelector('.btn-group button').click(); // Auto-spuštění dešifrování
-        }
+        if(debugMode) updateDebugUrl(); 
+        if(prefillData && type !== 'mat') document.querySelector('.btn-group button').click(); 
     }
 
     // --- LOGIKA ŠIFER ---
-
-    function printOut(content) {
-        document.getElementById('output').innerHTML = content;
-    }
+    function printOut(content) { document.getElementById('output').innerHTML = content; }
 
     function processMorse(decode) {
         const input = document.getElementById('input-text').value.trim().toUpperCase();
         if (decode) {
-            // Správné dešifrování: lomítko dělí slova, mezery dělí znaky
             const words = input.split('/');
             const decoded = words.map(word => {
                 return word.trim().split(/\s+/).map(char => {
                     if(!char) return '';
-                    return MORSE_DICT[char] || '?';
+                    let letter = Object.keys(MORSE_DICT).find(key => MORSE_DICT[key] === char);
+                    return letter || '?';
                 }).join('');
             }).join(' ');
             printOut(decoded);
         } else {
-            // Šifrování
             const encoded = input.split('').map(char => {
                 if (char === ' ') return ' / ';
-                const morse = Object.keys(MORSE_DICT).find(key => MORSE_DICT[key] === char);
-                return morse ? morse + ' ' : '? ';
+                return MORSE_DICT[char] ? MORSE_DICT[char] + ' ' : '? ';
             }).join('');
             printOut(encoded.trim());
         }
@@ -386,36 +500,28 @@
         const text = document.getElementById('input-text').value.toUpperCase();
         let shift = parseInt(document.getElementById('input-key').value) || 0;
         shift = shift * direction;
-        
         let result = '';
         for (let i = 0; i < text.length; i++) {
             let code = text.charCodeAt(i);
-            if (code >= 65 && code <= 90) {
-                result += String.fromCharCode(((code - 65 + shift) % 26 + 26) % 26 + 65);
-            } else {
-                result += text.charAt(i);
-            }
+            if (code >= 65 && code <= 90) result += String.fromCharCode(((code - 65 + shift) % 26 + 26) % 26 + 65);
+            else result += text.charAt(i);
         }
         printOut(result);
     }
 
-    function processReverse() {
-        const text = document.getElementById('input-text').value;
-        printOut(text.split('').reverse().join(''));
-    }
+    function processReverse() { printOut(document.getElementById('input-text').value.split('').reverse().join('')); }
 
     function processVigenere(direction) {
         const text = document.getElementById('input-text').value.toUpperCase();
-        const key = document.getElementById('input-key').value.toUpperCase().replace(/[^A-Z]/g, '');
-        if (!key) return printOut("Zadejte platný klíč (pouze písmena A-Z).");
-
+        const key = document.getElementById('input-key').value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        if (!key) return printOut("Zadejte platný klíč.");
         let result = '';
         let keyIndex = 0;
-
         for (let i = 0; i < text.length; i++) {
             let code = text.charCodeAt(i);
             if (code >= 65 && code <= 90) {
-                let kCode = key.charCodeAt(keyIndex % key.length) - 65;
+                let keyChar = key.charAt(keyIndex % key.length);
+                let kCode = isNaN(keyChar) ? key.charCodeAt(keyIndex % key.length) - 65 : parseInt(keyChar);
                 result += String.fromCharCode(((code - 65 + (kCode * direction)) % 26 + 26) % 26 + 65);
                 keyIndex++;
             } else {
@@ -428,29 +534,21 @@
     function processASCII(decode) {
         const text = document.getElementById('input-text').value.trim();
         if (decode) {
-            const result = text.split(/\s+/).map(num => String.fromCharCode(parseInt(num))).join('');
-            printOut(result);
+            printOut(text.split(/\s+/).map(num => String.fromCharCode(parseInt(num))).join(''));
         } else {
-            const result = text.split('').map(char => char.charCodeAt(0)).join(' ');
-            printOut(result);
+            printOut(text.split('').map(char => char.charCodeAt(0)).join(' '));
         }
     }
 
     function processABC(decode) {
         const text = document.getElementById('input-text').value.trim();
         if (decode) {
-            // Čísla -> Text (0 = A, 1 = B, atd.)
-            const result = text.split(/\s+/).map(num => {
+            printOut(text.split(/\s+/).map(num => {
                 let val = parseInt(num);
-                if (isNaN(val)) return '?';
-                return String.fromCharCode((val % 26) + 65);
-            }).join('');
-            printOut(result);
+                return isNaN(val) ? '?' : String.fromCharCode((val % 26) + 65);
+            }).join(''));
         } else {
-            // Text -> Čísla (A = 0, B = 1, atd.)
-            const clean = text.toUpperCase().replace(/[^A-Z]/g, '');
-            const result = clean.split('').map(char => char.charCodeAt(0) - 65).join(' ');
-            printOut(result);
+            printOut(text.toUpperCase().replace(/[^A-Z]/g, '').split('').map(char => char.charCodeAt(0) - 65).join(' '));
         }
     }
 
@@ -458,13 +556,11 @@
         const text = document.getElementById('input-text').value.trim();
         const lines = text.split('\n');
         let html = '<table class="rle-grid">';
-        
         lines.forEach(line => {
             if(!line.trim()) return;
             html += '<tr>';
             const parts = line.split(',').map(Number);
-            let isFilled = false; // RLE standardně začíná prázdnými pixely (bílá)
-            
+            let isFilled = true; // Zde upraveno na start černým políčkem
             parts.forEach(count => {
                 for (let i = 0; i < count; i++) {
                     html += `<td class="${isFilled ? 'filled' : 'empty'}"></td>`;
@@ -480,44 +576,23 @@
     function toggleMathCell(cell) {
         cell.classList.toggle('selected');
         let sum = 0;
-        document.querySelectorAll('.math-cell.selected').forEach(c => {
-            sum += parseInt(c.getAttribute('data-val'));
-        });
+        document.querySelectorAll('.math-cell.selected').forEach(c => sum += parseInt(c.getAttribute('data-val')));
         const sumEl = document.getElementById('math-total');
         sumEl.innerText = sum;
         if(sum === 269) {
-            sumEl.style.color = "#fff";
-            sumEl.style.backgroundColor = "#27ae60";
-            sumEl.style.padding = "0 10px";
-            sumEl.style.borderRadius = "4px";
+            sumEl.style.color = "#fff"; sumEl.style.backgroundColor = "#27ae60"; sumEl.style.padding = "0 10px"; sumEl.style.borderRadius = "4px";
         } else {
-            sumEl.style.color = "#00ff00";
-            sumEl.style.backgroundColor = "transparent";
+            sumEl.style.color = "#00ff00"; sumEl.style.backgroundColor = "transparent";
         }
     }
 
-    // Funkce pro aktualizaci odkazů v debug módu
     function updateDebugUrl() {
         if(!debugMode) return;
-        const url = new URL(window.location.href.split('?')[0]); // čisté url
-        url.searchParams.set('sifra', cipherType);
-        url.searchParams.set('secret', secret);
-        url.searchParams.set('debug', '1');
-        
-        const textEl = document.getElementById('input-text');
-        const keyEl = document.getElementById('input-key');
-        
-        if (textEl && textEl.value) {
-            url.searchParams.set('text', textEl.value);
-        }
-        if (keyEl && keyEl.value) {
-            if(cipherType === 'ces') {
-                url.searchParams.set('shift', keyEl.value);
-            } else {
-                url.searchParams.set('key', keyEl.value);
-            }
-        }
-        
+        const url = new URL(window.location.href.split('?')[0]); 
+        url.searchParams.set('sifra', cipherType); url.searchParams.set('secret', secret); url.searchParams.set('debug', '1');
+        const textEl = document.getElementById('input-text'); const keyEl = document.getElementById('input-key');
+        if (textEl && textEl.value) url.searchParams.set('text', textEl.value);
+        if (keyEl && keyEl.value) url.searchParams.set(cipherType === 'ces' ? 'shift' : 'key', keyEl.value);
         document.getElementById('debug-url').value = url.toString();
     }
 </script>
