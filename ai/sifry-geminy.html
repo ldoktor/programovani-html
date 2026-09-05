@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kryptex - Dekódovací terminál</title>
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --panel-bg: #16213e;
+            --text-color: #e94560;
+            --text-light: #0f3460;
+            --white: #ededed;
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--white);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--panel-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid var(--text-color);
+        }
+        h1 {
+            color: var(--text-color);
+            border-bottom: 2px dashed var(--text-color);
+            padding-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .hidden { display: none !important; }
+        .error-msg {
+            color: #ff4757;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 40px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        textarea, input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            background: #0d1117;
+            border: 1px solid var(--text-color);
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 1.1em;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+        textarea { resize: vertical; min-height: 100px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        button {
+            flex: 1;
+            padding: 10px;
+            background: var(--text-color);
+            color: white;
+            border: none;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        button:hover { background: #d6304a; }
+        
+        .output-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0d1117;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            word-wrap: break-word;
+            min-height: 50px;
+            border-radius: 4px;
+        }
+        
+        /* Tabulka abecedy */
+        .alphabet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .alphabet-table th, .alphabet-table td {
+            border: 1px solid #333;
+            padding: 4px;
+        }
+        .alphabet-table th { background: #222; color: var(--text-color); }
+        
+        /* Debug Panel */
+        #debug-panel {
+            background: #f39c12;
+            color: #000;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        #debug-panel input {
+            background: #fff;
+            color: #000;
+            font-size: 0.9em;
+            border: 1px solid #000;
+            margin-top: 5px;
+        }
+
+        /* Mřížky */
+        .rle-grid { border-collapse: collapse; margin-top: 15px; background: #fff;}
+        .rle-grid td { width: 25px; height: 25px; border: 1px solid #ccc; }
+        .rle-grid td.filled { background: #000; }
+        
+        .math-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 15px;
+        }
+        .math-cell {
+            background: #222;
+            border: 1px solid var(--text-color);
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            user-select: none;
+        }
+        .math-cell.selected { background: var(--text-color); color: white; }
+        .math-cell.static { cursor: not-allowed; opacity: 0.7; }
+        .math-sum { font-size: 1.5em; text-align: center; margin-top: 15px; color: #00ff00; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="debug-panel" class="hidden">
+        [DEBUG REŽIM] Odkaz s aktuálními daty (ke zkopírování):
+        <input type="text" id="debug-url" readonly onclick="this.select()">
+    </div>
+
+    <h1>Terminál Kryptex</h1>
+    
+    <div id="auth-error" class="error-msg">
+        [ PŘÍSTUP ODEPŘEN ]<br>Chybí nebo je neplatný ověřovací klíč.
+    </div>
+
+    <div id="workspace" class="hidden">
+        <h2 id="cipher-title" style="color: white; text-align: center;">Šifra</h2>
+        
+        <div id="tool-container"></div>
+        
+        <div class="form-group" style="margin-top: 20px;">
+            <label>VÝSTUP / DEKÓDOVANÝ TEXT:</label>
+            <div id="output" class="output-box">Zde se zobrazí výsledek...</div>
+        </div>
+
+        <table class="alphabet-table">
+            <tr>
+                <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th>
+                <th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th>
+            </tr>
+            <tr>
+                <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>
+                <td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    const SECRETS = {
+        'mor': 'alpha123',
+        'ces': 'beta456',
+        'rev': 'gamma789',
+        'non': 'delta000',
+        'mat': 'epsilon11',
+        'rle': 'CwkAkc4e',
+        'asc': 'omega99',
+        'vie': 'sigma22',
+        'abc': 'zeta333'
+    };
+
+    const MORSE_DICT = {
+        '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F',
+        '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L',
+        '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R',
+        '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
+        '-.--': 'Y', '--..': 'Z', '.----': '1', '..---': '2', '...--': '3',
+        '....-': '4', '.....': '5', '-....': '6', '--...': '7', '---..': '8',
+        '----.': '9', '-----': '0', '---...': ':'
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const cipherType = urlParams.get('sifra');
+    const secret = urlParams.get('secret');
+    const prefillData = urlParams.get('text') || '';
+    const debugMode = urlParams.get('debug') === '1';
+
+    // Ověření
+    if (cipherType && SECRETS[cipherType] && SECRETS[cipherType] === secret) {
+        document.getElementById('auth-error').classList.add('hidden');
+        document.getElementById('workspace').classList.remove('hidden');
+        if (debugMode) document.getElementById('debug-panel').classList.remove('hidden');
+        initTool(cipherType);
+    }
+
+    function initTool(type) {
+        const container = document.getElementById('tool-container');
+        const title = document.getElementById('cipher-title');
+        let html = '';
+        
+        // Pomocná událost pro aktualizaci DEBUG URL
+        const ev = debugMode ? 'oninput="updateDebugUrl()"' : '';
+
+        switch(type) {
+            case 'mor':
+                title.innerText = "Morseova Abeceda <mor>";
+                html = `
+                    <div class="form-group">
+                        <label>Vstupní text (tečky/čárky oddělené mezerou, lomítko '/' pro oddělení slov):</label>
+                        <textarea id="input-text" ${ev} placeholder=".- .... --- .---">${prefillData}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processMorse(true)">Dešifrovat z Morseovky</button>
+                        <button onclick="processMorse(false)">Zašifrovat do Morseovky</button>
+                    </div>`;
+                break;
+                
+            case 'ces':
+                title.innerText = "Caesarova Šifra <ces>";
+                html = `
+                    <div class="form-group">
+                        <label>Zpráva:</label>
+                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Posun (číslo, např. 3 nebo -3):</label>
+                        <input type="number" id="input-key" ${ev} value="${urlParams.get('shift') || 3}">
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processCaesar(1)">Zašifrovat (+)</button>
+                        <button onclick="processCaesar(-1)">Dešifrovat (-)</button>
+                    </div>`;
+                break;
+
+            case 'rev':
+                title.innerText = "Reverzní Text <rev>";
+                html = `
+                    <div class="form-group">
+                        <label>Text k převrácení:</label>
+                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processReverse()">Otočit text</button>
+                    </div>`;
+                break;
+
+            case 'non':
+            case 'vie':
+                title.innerText = type === 'non' ? "Gronsfeld / Aditivní posun <non>" : "Vigenère Šifra <vie>";
+                html = `
+                    <div class="form-group">
+                        <label>Zpráva:</label>
+                        <textarea id="input-text" ${ev}>${prefillData}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Klíč (text pro vie / čísla pro non):</label>
+                        <input type="text" id="input-key" ${ev} value="${urlParams.get('key') || ''}">
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processVigenere(1)">Zašifrovat (+)</button>
+                        <button onclick="processVigenere(-1)">Dešifrovat (-)</button>
+                    </div>`;
+                break;
+
+            case 'rle':
+                title.innerText = "Run-Length Encoding Grafika <rle>";
+                html = `
+                    <div class="form-group">
+                        <label>Zadejte RLE kód (řádky oddělené enterem, čísla čárkou):</label>
+                        <textarea id="input-text" ${ev} placeholder="1,4\\n2,3\\n1,1,1,2">${prefillData}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processRLE()">Vykreslit</button>
+                    </div>`;
+                break;
+
+            case 'asc':
+                title.innerText = "ASCII Kódování <asc>";
+                html = `
+                    <div class="form-group">
+                        <label>Vstup (čísla oddělená mezerou NEBO text):</label>
+                        <textarea id="input-text" ${ev} placeholder="85 107 111 108">${prefillData}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processASCII(true)">Čísla -> Text</button>
+                        <button onclick="processASCII(false)">Text -> Čísla</button>
+                    </div>`;
+                break;
+                
+            case 'abc':
+                title.innerText = "Číselná Abeceda (A=0, Z=25) <abc>";
+                html = `
+                    <div class="form-group">
+                        <label>Vstup (čísla 0-25 oddělená mezerou NEBO obyčejný text):</label>
+                        <textarea id="input-text" ${ev} placeholder="0 1 2 3">${prefillData}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="processABC(true)">Čísla -> Text</button>
+                        <button onclick="processABC(false)">Text -> Čísla</button>
+                    </div>`;
+                break;
+
+            case 'mat':
+                title.innerText = "Matematická Mřížka <mat>";
+                const gridData = ['S',3,5,7,11, 13,17,19,23,29, 31,37,41,43,47, 53,59,61,67,71, 73,79,83,89,'C'];
+                html = `<div style="text-align: center;">Klikáním na čísla vyznač trasu a sleduj součet. Cílová hodnota = 269.</div>
+                        <div class="math-grid">`;
+                gridData.forEach(num => {
+                    const isEdge = num === 'S' || num === 'C';
+                    html += `<div class="math-cell ${isEdge ? 'static' : ''}" data-val="${isEdge ? 0 : num}" onclick="${isEdge ? '' : 'toggleMathCell(this)'}">${num}</div>`;
+                });
+                html += `</div><div class="math-sum">Aktuální součet: <span id="math-total">0</span></div>`;
+                document.getElementById('output').parentElement.style.display = 'none'; // Skryjeme normální výstup
+                break;
+        }
+
+        container.innerHTML = html;
+        if(debugMode) updateDebugUrl(); // Vygenerovat URL při startu
+        if(prefillData && type !== 'mat') {
+            document.querySelector('.btn-group button').click(); // Auto-spuštění dešifrování
+        }
+    }
+
+    // --- LOGIKA ŠIFER ---
+
+    function printOut(content) {
+        document.getElementById('output').innerHTML = content;
+    }
+
+    function processMorse(decode) {
+        const input = document.getElementById('input-text').value.trim().toUpperCase();
+        if (decode) {
+            // Správné dešifrování: lomítko dělí slova, mezery dělí znaky
+            const words = input.split('/');
+            const decoded = words.map(word => {
+                return word.trim().split(/\s+/).map(char => {
+                    if(!char) return '';
+                    return MORSE_DICT[char] || '?';
+                }).join('');
+            }).join(' ');
+            printOut(decoded);
+        } else {
+            // Šifrování
+            const encoded = input.split('').map(char => {
+                if (char === ' ') return ' / ';
+                const morse = Object.keys(MORSE_DICT).find(key => MORSE_DICT[key] === char);
+                return morse ? morse + ' ' : '? ';
+            }).join('');
+            printOut(encoded.trim());
+        }
+    }
+
+    function processCaesar(direction) {
+        const text = document.getElementById('input-text').value.toUpperCase();
+        let shift = parseInt(document.getElementById('input-key').value) || 0;
+        shift = shift * direction;
+        
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            let code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                result += String.fromCharCode(((code - 65 + shift) % 26 + 26) % 26 + 65);
+            } else {
+                result += text.charAt(i);
+            }
+        }
+        printOut(result);
+    }
+
+    function processReverse() {
+        const text = document.getElementById('input-text').value;
+        printOut(text.split('').reverse().join(''));
+    }
+
+    function processVigenere(direction) {
+        const text = document.getElementById('input-text').value.toUpperCase();
+        const key = document.getElementById('input-key').value.toUpperCase().replace(/[^A-Z]/g, '');
+        if (!key) return printOut("Zadejte platný klíč (pouze písmena A-Z).");
+
+        let result = '';
+        let keyIndex = 0;
+
+        for (let i = 0; i < text.length; i++) {
+            let code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                let kCode = key.charCodeAt(keyIndex % key.length) - 65;
+                result += String.fromCharCode(((code - 65 + (kCode * direction)) % 26 + 26) % 26 + 65);
+                keyIndex++;
+            } else {
+                result += text.charAt(i);
+            }
+        }
+        printOut(result);
+    }
+
+    function processASCII(decode) {
+        const text = document.getElementById('input-text').value.trim();
+        if (decode) {
+            const result = text.split(/\s+/).map(num => String.fromCharCode(parseInt(num))).join('');
+            printOut(result);
+        } else {
+            const result = text.split('').map(char => char.charCodeAt(0)).join(' ');
+            printOut(result);
+        }
+    }
+
+    function processABC(decode) {
+        const text = document.getElementById('input-text').value.trim();
+        if (decode) {
+            // Čísla -> Text (0 = A, 1 = B, atd.)
+            const result = text.split(/\s+/).map(num => {
+                let val = parseInt(num);
+                if (isNaN(val)) return '?';
+                return String.fromCharCode((val % 26) + 65);
+            }).join('');
+            printOut(result);
+        } else {
+            // Text -> Čísla (A = 0, B = 1, atd.)
+            const clean = text.toUpperCase().replace(/[^A-Z]/g, '');
+            const result = clean.split('').map(char => char.charCodeAt(0) - 65).join(' ');
+            printOut(result);
+        }
+    }
+
+    function processRLE() {
+        const text = document.getElementById('input-text').value.trim();
+        const lines = text.split('\n');
+        let html = '<table class="rle-grid">';
+        
+        lines.forEach(line => {
+            if(!line.trim()) return;
+            html += '<tr>';
+            const parts = line.split(',').map(Number);
+            let isFilled = false; // RLE standardně začíná prázdnými pixely (bílá)
+            
+            parts.forEach(count => {
+                for (let i = 0; i < count; i++) {
+                    html += `<td class="${isFilled ? 'filled' : 'empty'}"></td>`;
+                }
+                isFilled = !isFilled; 
+            });
+            html += '</tr>';
+        });
+        html += '</table>';
+        printOut(html);
+    }
+
+    function toggleMathCell(cell) {
+        cell.classList.toggle('selected');
+        let sum = 0;
+        document.querySelectorAll('.math-cell.selected').forEach(c => {
+            sum += parseInt(c.getAttribute('data-val'));
+        });
+        const sumEl = document.getElementById('math-total');
+        sumEl.innerText = sum;
+        if(sum === 269) {
+            sumEl.style.color = "#fff";
+            sumEl.style.backgroundColor = "#27ae60";
+            sumEl.style.padding = "0 10px";
+            sumEl.style.borderRadius = "4px";
+        } else {
+            sumEl.style.color = "#00ff00";
+            sumEl.style.backgroundColor = "transparent";
+        }
+    }
+
+    // Funkce pro aktualizaci odkazů v debug módu
+    function updateDebugUrl() {
+        if(!debugMode) return;
+        const url = new URL(window.location.href.split('?')[0]); // čisté url
+        url.searchParams.set('sifra', cipherType);
+        url.searchParams.set('secret', secret);
+        url.searchParams.set('debug', '1');
+        
+        const textEl = document.getElementById('input-text');
+        const keyEl = document.getElementById('input-key');
+        
+        if (textEl && textEl.value) {
+            url.searchParams.set('text', textEl.value);
+        }
+        if (keyEl && keyEl.value) {
+            if(cipherType === 'ces') {
+                url.searchParams.set('shift', keyEl.value);
+            } else {
+                url.searchParams.set('key', keyEl.value);
+            }
+        }
+        
+        document.getElementById('debug-url').value = url.toString();
+    }
+</script>
+
+</body>
+</html>
